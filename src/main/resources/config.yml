@@ -1,0 +1,6 @@
+# The character(s) that Bash Multi Command will look for to split a single chat message into multiple ones.
+separator: ';'
+# The permission needed to use multiple commands.
+permission: 'bashmulticommand.use'
+# Whether or not to autoupdate
+autoupdate: true

@@ -1,3 +1,32 @@
-name: LineMaker
+name: BashMultiCommand
 main: io.github.tommsy64.bashmulticommand.BashMultiCommand
-version: 0.0.1-SNAPSHOT
+version: 0.0.1
+author: Tommsy64
+description: This plugin lets you type multiple chat messages with one chat message using a separator.
+website: https://github.com/Tommsy64/Bash-Multi-Command
+database: false
+prefix: BMC
+loadbefore: [Vault]
+softdepend: [Vault]
+commands:
+ BashMultiCommand:
+    description: The base command for BashMultiCommand
+    aliases: bmc
+    permission: bashmulticommand.admin
+permissions:
+  bashmulticommand.*:
+    description: Allows you to have full access Bash Multi Command
+    default: op
+    children:
+      bashmulticommand.use: true
+      bashmulticommand.reload: true
+      bashmulticommand.update: true
+  bashmulticommand.use:
+    description: Allows you to use Bash Multi Command
+    default: true
+  bashmulticommand.reload:
+    description: Allows you to reload Bash Multi Command
+    default: op
+  bashmulticommand.update:
+    description: Allows you to update Bash Multi Command
+    default: op

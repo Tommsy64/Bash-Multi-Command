@@ -1,20 +1,32 @@
 Bash-Multi-Command
 =================
 
-Type multiple commands in chat Bash style
+Type multiple commands in chat Bash style.
+
+[Bukkit Dev Link](http://dev.bukkit.org/bukkit-plugins/bash-multi-command/)
 
 ##What it does
 
 This plugin lets you type 2 or more commands with one command, Bash style.
 
-
-Typing this,
+Typing
 
 ```
-/help 1;/help 2
+/help 1;/help 2"
 ```
 
-Will execute /help 1 and then /help 2.
+will execute /help 1 and then /help 2.
+
+Typing
+
+```
+hello;never mind you suck
+```
+
+will make you send 2 messages.
+
+1. Hello
+2. Never mind you suck
 
 
 ##License Notice
