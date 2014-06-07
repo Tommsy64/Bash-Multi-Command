@@ -23,4 +23,4 @@ Pretty much, it's not mine or the plugins fault if it somehow crashes your serve
 
 And... if you havn't noticed yet, this software is under the MIT license.
 
-Copyright (c) 2014 Thomas Pakh Tommsy64@users.noreply.github.com
+Copyright (c) 2014 Thomas Pakh thomas.pakh@gmail.com
