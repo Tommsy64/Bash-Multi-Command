@@ -8,7 +8,7 @@ public class Config {
 
 	public Config() {
 		BashMultiCommand.plugin.saveDefaultConfig();
-
+		BashMultiCommand.plugin.reloadConfig();
 		separator = BashMultiCommand.plugin.getConfig().getString("separator");
 		permission = BashMultiCommand.plugin.getConfig()
 				.getString("permission");

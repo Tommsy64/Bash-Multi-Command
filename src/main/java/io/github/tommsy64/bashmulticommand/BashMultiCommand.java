@@ -60,26 +60,6 @@ public class BashMultiCommand extends JavaPlugin {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
-		if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
-			sender.sendMessage("----- " + ChatColor.YELLOW + "Bash "
-					+ ChatColor.DARK_AQUA + "Multi Command " + ChatColor.RESET
-					+ "-----");
-			// sender.sendMessage(ChatColor.AQUA + "/bmc help" + ChatColor.WHITE
-			// +
-			// "- Display more info for that command.");
-			sender.sendMessage(ChatColor.DARK_AQUA + "/bmc " + ChatColor.GRAY
-					+ "reload" + ChatColor.WHITE + "- Reloads "
-					+ ChatColor.YELLOW + "Bash " + ChatColor.WHITE
-					+ "Multi Command");
-			sender.sendMessage(ChatColor.DARK_AQUA + "/bmc " + ChatColor.GRAY
-					+ "update" + ChatColor.WHITE + "- Updates "
-					+ ChatColor.YELLOW + "Bash " + ChatColor.WHITE
-					+ "Multi Command if new version is found");
-			sender.sendMessage(ChatColor.DARK_AQUA + "/bmc about"
-					+ ChatColor.WHITE + "- Displays some basic info");
-			return true;
-		}
-
 		if (args[0].equalsIgnoreCase("reload")
 				&& hasPermission(sender, "bashmulticommand.reload")) {
 			sender.sendMessage(ChatColor.YELLOW + "Batch " + ChatColor.WHITE
@@ -107,8 +87,24 @@ public class BashMultiCommand extends JavaPlugin {
 					+ ChatColor.WHITE + "- Do /version " + ChatColor.DARK_AQUA
 					+ getDescription().getName() + ChatColor.WHITE
 					+ " for more info");
+			return true;
 		}
 
+		sender.sendMessage("----- " + ChatColor.YELLOW + "Bash "
+				+ ChatColor.DARK_AQUA + "Multi Command " + ChatColor.RESET
+				+ "-----");
+		// sender.sendMessage(ChatColor.AQUA + "/bmc help" + ChatColor.WHITE
+		// +
+		// "- Display more info for that command.");
+		sender.sendMessage(ChatColor.DARK_AQUA + "/bmc " + ChatColor.GRAY
+				+ "reload" + ChatColor.WHITE + "- Reloads " + ChatColor.YELLOW
+				+ "Bash " + ChatColor.WHITE + "Multi Command");
+		sender.sendMessage(ChatColor.DARK_AQUA + "/bmc " + ChatColor.GRAY
+				+ "update" + ChatColor.WHITE + "- Updates " + ChatColor.YELLOW
+				+ "Bash " + ChatColor.WHITE
+				+ "Multi Command if new version is found");
+		sender.sendMessage(ChatColor.DARK_AQUA + "/bmc about" + ChatColor.WHITE
+				+ "- Displays some basic info");
 		return true;
 	}
 }
