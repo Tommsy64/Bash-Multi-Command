@@ -1,4 +1,4 @@
-Bash-Multicommand
+Bash-Multi-Command
 =================
 
 Type multiple commands in chat Bash style
