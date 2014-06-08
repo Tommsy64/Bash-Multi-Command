@@ -12,7 +12,7 @@ commands:
  BashMultiCommand:
     description: The base command for BashMultiCommand
     aliases: [bmc, bmctoggle, bmct]
-    permission: bashmulticommand.admin
+    permission: bashmulticommand.use
 permissions:
   bashmulticommand.*:
     description: Allows you to have full access Bash Multi Command
