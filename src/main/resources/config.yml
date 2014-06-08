@@ -2,5 +2,7 @@
 separator: ';'
 # The permission needed to use multiple commands.
 permission: 'bashmulticommand.use'
+# The language to use. You can make your own language file and use that.
+language: en_US
 # Whether or not to autoupdate
 autoupdate: true

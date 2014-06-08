@@ -18,7 +18,8 @@ public class ChatListener implements Listener {
 	public void onAsyncChat(AsyncPlayerChatEvent event) {
 		if (!event.getMessage().contains(Config.separator)
 				|| !BashMultiCommand.hasPermission(event.getPlayer(),
-						Config.permission))
+						Config.permission)
+				|| !PlayerManager.isEnabled(event.getPlayer().getUniqueId()))
 			return;
 		event.setCancelled(true);
 		splitSend(event.getPlayer(), event.getMessage());
@@ -28,7 +29,8 @@ public class ChatListener implements Listener {
 	public void onPreCommand(PlayerCommandPreprocessEvent event) {
 		if (!event.getMessage().contains(Config.separator)
 				|| !BashMultiCommand.hasPermission(event.getPlayer(),
-						Config.permission))
+						Config.permission)
+				|| !PlayerManager.isEnabled(event.getPlayer().getUniqueId()))
 			return;
 		event.setCancelled(true);
 		splitSend(event.getPlayer(), event.getMessage());

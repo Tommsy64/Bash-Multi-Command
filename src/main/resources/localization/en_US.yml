@@ -1,0 +1,52 @@
+messages:
+  pluginEnabled: enabled
+  noVault: '&4Vault not found! Using built in permission checks.'
+  pluginGlobalDisabled: '%pluginname% &fhas been &cglobally &fdisabled'
+  pluginGlobalEnabled: '%pluginname% &fhas been &cglobally &fenabled'
+  pluginPersonalDisabled: '%pluginname% &fhas been disabled'
+  pluginPersonalEnabled: '%pluginname% &fhas been enabled'
+  reloaded: '%pluginname% reloaded'
+  false: false
+  true: true
+  pluginDisplayName: '&eB&3MC'
+  toggleCommand: toggle
+  reloadCommand: reload
+  updateCommand: update
+  aboutCommand: about
+  helpCommand: help
+  playerOnly: '&cOnly players can execute that command!'
+  unknownCommand: '%pluginname%&f - Command &3%command% not found.'
+  playerNotFound: '&c%player% was not found!'
+commandmessages:
+  about:
+  - '----- %pluginname% &f-----'
+  - '&3Seperator  &f-&c %seperator%'
+  - '&3Permission &f-&c %permission%'
+  - '&3AutoUpdate &f-&c %autoupdate%'
+  - '&3Version   &f- Do /version &3%pluginname% &ffor more info'
+  help:
+  - '----- %pluginname% &f-----'
+  - '&3/bmc %helpCommand%&f - Display more info for that command.'
+  - '&3/bmc &7%reloadCommand% &f- Reloads %pluginname%'
+  - '&3/bmc &7%toggleCommand% &f- Toggles %pluginname%'
+  - '&3/bmc &7%updateCommand% &f- Updates %pluginname% &fif a new version is found'
+  - '&3/bmc %aboutCommand% &f- Displays some basic info'
+  helpHelp:
+  - '----- %pluginname% &f-----'
+  - '&3/co help &f- Displays a list of all commands.'
+  helpToggle:
+  - '----- %pluginname% &f-----'
+  - '&3With to %toggleCommand% command, you can: '
+  - '&fturn %pluginname% on or off for specific players.'
+  - '&3/bmc &ftoggle &c<playername>'
+  - '&fturn %pluginname% on or off globally by specifying the &c-g&f flag'
+  - '&3/bmc &ftoggle &c-g'
+  - '&fUse &3/bmct&f to toggle the plugin for yourself'
+  helpReload:
+  - '----- %pluginname% &f-----'
+  - '&3Reloads %pluginname%&3 and saves &cenabled data'
+  - '&cEnabled data&f - the data on whether or not you have %pluginname%&f enabled'
+  helpUpdate:
+  - '----- %pluginname% &f-----'
+  - '&3Checks for new version and downloads it if any are available'
+  

@@ -1,19 +1,28 @@
 package io.github.tommsy64.bashmulticommand;
 
+import io.github.tommsy64.bashmulticommand.uuid.UUIDManager;
+
+import java.util.UUID;
+
 import net.milkbowl.vault.permission.Permission;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class BashMultiCommand extends JavaPlugin {
+public final class BashMultiCommand extends JavaPlugin {
 
 	public static BashMultiCommand plugin;
 	private static Permission perm;
 	public static Config config;
+	public static Strings strings;
+	private static Boolean enabled = false;
 
 	@Override
 	public void onEnable() {
@@ -22,11 +31,19 @@ public class BashMultiCommand extends JavaPlugin {
 		if (checkForVault())
 			setUpPermissions();
 		else
-			getLogger().warning(
-					"Vault not found! Using built in permission checks.");
+			getLogger().warning(strings.get("vaultNotFound"));
 
 		config = new Config();
+		strings = new Strings();
 		new ChatListener();
+		enabled = true;
+	}
+
+	@Override
+	public void onDisable() {
+		Config.saveEnabledStates();
+		HandlerList.unregisterAll(this);
+		enabled = false;
 	}
 
 	private boolean checkForVault() {
@@ -36,9 +53,8 @@ public class BashMultiCommand extends JavaPlugin {
 	}
 
 	private void setUpPermissions() {
-		RegisteredServiceProvider<Permission> rsp = BashMultiCommand.plugin
-				.getServer().getServicesManager()
-				.getRegistration(Permission.class);
+		RegisteredServiceProvider<Permission> rsp = this.getServer()
+				.getServicesManager().getRegistration(Permission.class);
 		if (rsp != null)
 			perm = rsp.getProvider();
 	}
@@ -60,51 +76,84 @@ public class BashMultiCommand extends JavaPlugin {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
+		if ((args.length == 0 && label.equalsIgnoreCase("bmc"))
+				|| args[0].equalsIgnoreCase("help")) {
+			helpMessage(sender);
+			return true;
+		}
+
+		if (label.equalsIgnoreCase("bmct")
+				|| args[0].equalsIgnoreCase("toggle")
+				&& hasPermission(sender, "bashmulticommand.toggle")) {
+
+			if (args.length == 1 || label.equalsIgnoreCase("bmct")
+					&& hasPermission(sender, "bashmulticommand.toggle")) {
+				if (sender instanceof Player)
+					PlayerManager.togglePluginState((Player) sender);
+				else
+					sender.sendMessage(strings.get("playerOnly"));
+				return true;
+			}
+
+			if (args[1].equalsIgnoreCase("-g")
+					&& hasPermission(sender, "bashmulticommand.toggle.global")) {
+				if (enabled) {
+					onDisable();
+					sender.sendMessage(strings.get("pluginGlobalDisabled"));
+				} else {
+					onEnable();
+					sender.sendMessage(strings.get("pluginGlobalEnabled"));
+				}
+				return true;
+			}
+
+			if (args[1] != null
+					&& hasPermission(sender, "bashmulticommand.toggle.others")) {
+
+
+				UUID uuid = UUIDManager.getUUIDFromPlayer(args[1]);
+
+				if (uuid == null) {
+					sender.sendMessage(strings.get("playerNotFound")
+							.replaceAll("%player%", args[1]));
+					return true;
+				}
+
+				OfflinePlayer oPlayer = Bukkit.getServer().getOfflinePlayer(
+						uuid);
+				if (oPlayer != null)
+					if (PlayerManager.togglePluginState(oPlayer.getUniqueId()))
+						sender.sendMessage(strings.get("pluginPersonalEnabled")
+								+ " for " + ChatColor.RED + oPlayer.getName());
+					else
+						sender.sendMessage(strings
+								.get("pluginPersonalDisabled")
+								+ " for "
+								+ ChatColor.RED + oPlayer.getName());
+			}
+
+			return true;
+		}
+
 		if (args[0].equalsIgnoreCase("reload")
 				&& hasPermission(sender, "bashmulticommand.reload")) {
-			sender.sendMessage(ChatColor.YELLOW + "Batch " + ChatColor.WHITE
-					+ "Multi Command " + ChatColor.WHITE + "- Relaoded");
 			onDisable();
 			onEnable();
+			sender.sendMessage(strings.get("reloaded"));
 			return true;
 		}
 
 		if (args[0].equalsIgnoreCase("about")
-				&& hasPermission(sender, "bashmulticommand.reload")) {
-			sender.sendMessage("----- " + ChatColor.YELLOW + "Bash "
-					+ ChatColor.DARK_AQUA + "Multi Command " + ChatColor.RESET
-					+ "-----");
-			sender.sendMessage(ChatColor.DARK_AQUA + "Seperator "
-					+ ChatColor.WHITE + " - " + ChatColor.RED
-					+ Config.separator);
-			sender.sendMessage(ChatColor.DARK_AQUA + "Permission "
-					+ ChatColor.WHITE + " - " + ChatColor.RED
-					+ Config.permission);
-			sender.sendMessage(ChatColor.DARK_AQUA + "AutoUpdate "
-					+ ChatColor.WHITE + " - " + ChatColor.RED
-					+ Config.autoUpdate);
-			sender.sendMessage(ChatColor.DARK_AQUA + "Version "
-					+ ChatColor.WHITE + "- Do /version " + ChatColor.DARK_AQUA
-					+ getDescription().getName() + ChatColor.WHITE
-					+ " for more info");
+				&& hasPermission(sender, "bashmulticommand.about")) {
+			sender.sendMessage(strings.getArray("about"));
 			return true;
 		}
 
-		sender.sendMessage("----- " + ChatColor.YELLOW + "Bash "
-				+ ChatColor.DARK_AQUA + "Multi Command " + ChatColor.RESET
-				+ "-----");
-		// sender.sendMessage(ChatColor.AQUA + "/bmc help" + ChatColor.WHITE
-		// +
-		// "- Display more info for that command.");
-		sender.sendMessage(ChatColor.DARK_AQUA + "/bmc " + ChatColor.GRAY
-				+ "reload" + ChatColor.WHITE + "- Reloads " + ChatColor.YELLOW
-				+ "Bash " + ChatColor.WHITE + "Multi Command");
-		sender.sendMessage(ChatColor.DARK_AQUA + "/bmc " + ChatColor.GRAY
-				+ "update" + ChatColor.WHITE + "- Updates " + ChatColor.YELLOW
-				+ "Bash " + ChatColor.WHITE
-				+ "Multi Command if new version is found");
-		sender.sendMessage(ChatColor.DARK_AQUA + "/bmc about" + ChatColor.WHITE
-				+ "- Displays some basic info");
+		helpMessage(sender);
 		return true;
+	}
+
+	private void helpMessage(CommandSender sender) {
+		sender.sendMessage(strings.getArray("help"));
 	}
 }
