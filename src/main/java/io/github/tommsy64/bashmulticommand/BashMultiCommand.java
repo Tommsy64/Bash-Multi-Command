@@ -81,6 +81,9 @@ public final class BashMultiCommand extends JavaPlugin {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
+		if (label.equalsIgnoreCase("bmctoggle"))
+			label = "bmct";
+		
 		if ((args.length == 0 && label.equalsIgnoreCase("bmc"))
 				|| args[0].equalsIgnoreCase("help")) {
 			sender.sendMessage(strings.getArray("help"));
@@ -162,5 +165,5 @@ public final class BashMultiCommand extends JavaPlugin {
 
 		sender.sendMessage(strings.get("unkownCommand"));
 		return true;
-	}
+	}	
 }
