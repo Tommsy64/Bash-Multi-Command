@@ -38,7 +38,7 @@ commandmessages:
   - '----- %pluginname% &f-----'
   - '&3With to %toggleCommand% command, you can: '
   - '&fturn %pluginname% on or off for specific players.'
-  - '&3/bmc &ftoggle &c<playername>'
+  - '&3/bmc &ftoggle &c%player%'
   - '&fturn %pluginname% on or off globally by specifying the &c-g&f flag'
   - '&3/bmc &ftoggle &c-g'
   - '&fUse &3/bmct&f to toggle the plugin for yourself'
