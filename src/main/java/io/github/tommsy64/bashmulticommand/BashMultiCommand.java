@@ -24,6 +24,9 @@ public final class BashMultiCommand extends JavaPlugin {
 	public static Strings strings;
 	private static Boolean enabled = false;
 
+	private LoginListener loginListener;
+	private ChatListener chatListener;
+
 	@Override
 	public void onEnable() {
 		plugin = this;
@@ -35,14 +38,16 @@ public final class BashMultiCommand extends JavaPlugin {
 
 		config = new Config();
 		strings = new Strings();
-		new ChatListener();
+		chatListener = new ChatListener();
+		if (loginListener != null)
+			loginListener = new LoginListener();
 		enabled = true;
 	}
 
 	@Override
 	public void onDisable() {
 		Config.saveEnabledStates();
-		HandlerList.unregisterAll(this);
+		HandlerList.unregisterAll(chatListener);
 		enabled = false;
 	}
 
@@ -78,7 +83,7 @@ public final class BashMultiCommand extends JavaPlugin {
 			String[] args) {
 		if ((args.length == 0 && label.equalsIgnoreCase("bmc"))
 				|| args[0].equalsIgnoreCase("help")) {
-			helpMessage(sender);
+			sender.sendMessage(strings.getArray("help"));
 			return true;
 		}
 
@@ -110,7 +115,6 @@ public final class BashMultiCommand extends JavaPlugin {
 			if (args[1] != null
 					&& hasPermission(sender, "bashmulticommand.toggle.others")) {
 
-
 				UUID uuid = UUIDManager.getUUIDFromPlayer(args[1]);
 
 				if (uuid == null) {
@@ -121,15 +125,22 @@ public final class BashMultiCommand extends JavaPlugin {
 
 				OfflinePlayer oPlayer = Bukkit.getServer().getOfflinePlayer(
 						uuid);
-				if (oPlayer != null)
+				if (oPlayer != null) {
+					String oPlayerName;
+					if (oPlayer.getName() != null)
+						oPlayerName = oPlayer.getName();
+					else
+						oPlayerName = args[1];
+
 					if (PlayerManager.togglePluginState(oPlayer.getUniqueId()))
 						sender.sendMessage(strings.get("pluginPersonalEnabled")
-								+ " for " + ChatColor.RED + oPlayer.getName());
+								+ " for " + ChatColor.RED + oPlayerName);
 					else
 						sender.sendMessage(strings
 								.get("pluginPersonalDisabled")
 								+ " for "
-								+ ChatColor.RED + oPlayer.getName());
+								+ ChatColor.RED + oPlayerName);
+				}
 			}
 
 			return true;
@@ -149,11 +160,7 @@ public final class BashMultiCommand extends JavaPlugin {
 			return true;
 		}
 
-		helpMessage(sender);
+		sender.sendMessage(strings.get("unkownCommand"));
 		return true;
-	}
-
-	private void helpMessage(CommandSender sender) {
-		sender.sendMessage(strings.getArray("help"));
 	}
 }
