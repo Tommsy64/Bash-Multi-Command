@@ -1,5 +1,6 @@
 package io.github.tommsy64.bashmulticommand.locale;
 
+import io.github.tommsy64.bashmulticommand.BashMultiCommand;
 import io.github.tommsy64.bashmulticommand.config.Config;
 import io.github.tommsy64.bashmulticommand.config.CustomConfig;
 
@@ -43,6 +44,8 @@ public final class Strings {
 			return null;
 		message = message.replaceAll("%pluginname%",
 				this.messages.get("pluginDisplayName").toString());
+		message = message.replaceAll("%pluginrealname%",
+				BashMultiCommand.plugin.getDescription().getName());
 		message = message.replaceAll("%seperator%", Config.separator);
 		message = message.replaceAll("%permission%", Config.permission);
 		message = message.replaceAll("%autoupdate%", Config.autoUpdate + "");
@@ -88,6 +91,6 @@ public final class Strings {
 		if (strings != null)
 			return messageFormat(strings);
 		else
-			return new String[1];
+			return new String[0];
 	}
 }

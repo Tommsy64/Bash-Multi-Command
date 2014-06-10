@@ -1,9 +1,9 @@
 name: BashMultiCommand
 main: io.github.tommsy64.bashmulticommand.BashMultiCommand
-version: 1.0.0
+version: 1.0.1
 author: Tommsy64
 description: This plugin lets you type multiple chat messages with one chat message using a separator.
-website: https://github.com/Tommsy64/Bash-Multi-Command
+website: http://dev.bukkit.org/bukkit-plugins/bash-multi-command/
 database: false
 prefix: BMC
 loadbefore: [Vault]
@@ -12,7 +12,6 @@ commands:
  BashMultiCommand:
     description: The base command for BashMultiCommand
     aliases: [bmc, bmctoggle, bmct]
-    permission: bashmulticommand.use
 permissions:
   bashmulticommand.*:
     description: Allows you to have full access Bash Multi Command
@@ -49,3 +48,6 @@ permissions:
     children:
       bashmulticommand.toggle.others: true
       bashmulticommand.toggle: true
+  bashmulticommand.command:
+    description: Allows you to use the /bmc command
+    default: op

@@ -3,8 +3,8 @@ messages:
   noVault: '&4Vault not found! Using built in permission checks.'
   pluginGlobalDisabled: '%pluginname% &fhas been &cglobally &fdisabled'
   pluginGlobalEnabled: '%pluginname% &fhas been &cglobally &fenabled'
-  pluginPersonalDisabled: '%pluginname% &fhas been disabled'
-  pluginPersonalEnabled: '%pluginname% &fhas been enabled'
+  pluginPersonalDisabled: '%pluginname% &fhas been disabled for %playername%'
+  pluginPersonalEnabled: '%pluginname% &fhas been enabled for %playername%'
   reloaded: '%pluginname% reloaded'
   false: false
   true: true
@@ -17,36 +17,33 @@ messages:
   playerOnly: '&cOnly players can execute that command!'
   unknownCommand: '%pluginname%&f - Command &3%command% not found.'
   playerNotFound: '&c%player% was not found!'
+  chatTitle: '----- %pluginname% &f-----'
+  commandHelp: help
+  commandHelpShortDescription: '&fDisplay more info for the specified command.'
+  commandHelpLongDescription: "&3Displays more info for the specified subcommand. \n &cUsage: &3/bmc %helpCommand%&f &c<subcommand>&f"
+  commandAbout: about
+  commandAboutShortDescription: '&fDisplays some basic info'
+  commandAboutLongDescription: '&3Displays some basic info about %pluginname%&f'
+  commandReload: reload
+  commandReloadShortDescription: '&fReloads %pluginname%'
+  commandReloadLongDescription: '&3Completely reloads %pluginname% as if it were a server restart and saves &cEnabled data&3. &cEnabled data&3 is the data on whether or not you have %pluginname%&f enabled'
+  commandUpdate: update
+  commandUpdateShortDescription: '&fUpdates %pluginname% &fif a new version is found'
+  commandUpdateLongDescription: '&3Checks for a new version of %pluginname%&3 and downloads it if any are available. To install the update, restart the server.'
+  commandToggle: toggle
+  commandToggleShortDescription: '&fToggles %pluginname%'
+  commandToggleLongDescription: "&3With to %toggleCommand% command, you can:\n&fturn %pluginname% on or off for specific players.\n&3/bmc &ftoggle &c%player%\n&fturn %pluginname% on or off globally by specifying the &c-g&f flag\n&3/bmc &ftoggle &c-g\n&fUse &3/bmct&f to toggle the plugin for yourself"
 commandmessages:
   about:
-  - '----- %pluginname% &f-----'
   - '&3Seperator  &f-&c %seperator%'
   - '&3Permission &f-&c %permission%'
   - '&3AutoUpdate &f-&c %autoupdate%'
-  - '&3Version   &f- Do /version &3%pluginname% &ffor more info'
-  help:
-  - '----- %pluginname% &f-----'
-  - '&3/bmc %helpCommand%&f - Display more info for that command.'
-  - '&3/bmc &7%reloadCommand% &f- Reloads %pluginname%'
-  - '&3/bmc &7%toggleCommand% &f- Toggles %pluginname%'
-  - '&3/bmc &7%updateCommand% &f- Updates %pluginname% &fif a new version is found'
-  - '&3/bmc %aboutCommand% &f- Displays some basic info'
-  helpHelp:
-  - '----- %pluginname% &f-----'
-  - '&3/co help &f- Displays a list of all commands.'
+  - '&3Version   &f- Do /version &3%pluginrealname% &ffor more info'
   helpToggle:
-  - '----- %pluginname% &f-----'
   - '&3With to %toggleCommand% command, you can: '
   - '&fturn %pluginname% on or off for specific players.'
   - '&3/bmc &ftoggle &c%player%'
   - '&fturn %pluginname% on or off globally by specifying the &c-g&f flag'
   - '&3/bmc &ftoggle &c-g'
   - '&fUse &3/bmct&f to toggle the plugin for yourself'
-  helpReload:
-  - '----- %pluginname% &f-----'
-  - '&3Reloads %pluginname%&3 and saves &cenabled data'
-  - '&cEnabled data&f - the data on whether or not you have %pluginname%&f enabled'
-  helpUpdate:
-  - '----- %pluginname% &f-----'
-  - '&3Checks for new version and downloads it if any are available'
   
