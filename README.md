@@ -12,7 +12,7 @@ This plugin lets you type 2 or more commands with one command, Bash style.
 Typing
 
 ```
-/help 1;/help 2"
+/help 1;/help 2
 ```
 
 will execute /help 1 and then /help 2.
@@ -20,12 +20,12 @@ will execute /help 1 and then /help 2.
 Typing
 
 ```
-hello;never mind you suck
+Hello!;Never mind you suck
 ```
 
 will make you send 2 messages.
 
-1. Hello
+1. Hello!
 2. Never mind you suck
 
 
