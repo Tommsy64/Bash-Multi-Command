@@ -1,4 +1,4 @@
-package io.github.tommsy64.bashmulticommand;
+package io.github.tommsy64.bashmulticommand.config;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,7 +11,7 @@ import java.io.ObjectOutputStream;
  * 
  * @author Tomsik68<tomsik68@gmail.com>
  */
-public class Loader {
+public class SLAPI {
 	public static <T extends Object> void save(T obj, String path)
 			throws Exception {
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(

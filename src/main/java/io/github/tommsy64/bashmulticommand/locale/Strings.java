@@ -1,30 +1,29 @@
-package io.github.tommsy64.bashmulticommand;
+package io.github.tommsy64.bashmulticommand.locale;
 
-import java.io.File;
-import java.io.InputStream;
+import io.github.tommsy64.bashmulticommand.config.Config;
+import io.github.tommsy64.bashmulticommand.config.CustomConfig;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-
 public final class Strings {
+
+	private CustomConfig localeConfig;
 
 	private Map<String, Object> messages = new HashMap<>();
 	private Map<String, String[]> commandMessages = new HashMap<>();
 
-	private FileConfiguration localizationConfig = null;
-	private File localizationFile = null;
-
-	private final String localizationPath = BashMultiCommand.plugin
-			.getDataFolder() + File.separator + "localization";
-
 	public Strings() {
-		this.reloadLocalization();
-		this.messages = localizationConfig.getConfigurationSection("messages")
-				.getValues(false);
+		this.localeConfig = new CustomConfig(Config.language, "localization");
+		localeConfig.loadConfig();
 
-		Map<String, Object> map = localizationConfig.getConfigurationSection(
+		this.messages = localeConfig.config.getConfigurationSection("messages")
+				.getValues(false);
+		loadCommandMessages();
+	}
+
+	private void loadCommandMessages() {
+		Map<String, Object> map = localeConfig.config.getConfigurationSection(
 				"commandmessages").getValues(false);
 		Object[] keys = map.keySet().toArray();
 
@@ -36,42 +35,6 @@ public final class Strings {
 					stringMap.substring(1, stringMap.lastIndexOf(']')).split(
 							","));
 			i++;
-		}
-
-	}
-
-	private void createDirectory() {
-		File f = new File(localizationPath);
-		if (f.exists() && f.isDirectory())
-			return;
-		else {
-			f.delete();
-			f.mkdirs();
-		}
-	}
-
-	@SuppressWarnings("deprecation")
-	public void reloadLocalization() {
-		if (localizationFile == null) {
-			createDirectory();
-			localizationFile = new File(localizationPath, Config.language
-					+ ".yml");
-			if (!this.localizationFile.exists())
-				BashMultiCommand.plugin.saveResource("localization"
-						+ File.separator + Config.language + ".yml", false);
-		}
-
-		localizationConfig = YamlConfiguration
-				.loadConfiguration(localizationFile);
-
-		// Look for defaults in the jar
-		InputStream defConfigStream = BashMultiCommand.plugin
-				.getResource("localization" + File.separator + Config.language
-						+ ".yml");
-		if (defConfigStream != null) {
-			YamlConfiguration defConfig = YamlConfiguration
-					.loadConfiguration(defConfigStream);
-			localizationConfig.setDefaults(defConfig);
 		}
 	}
 
@@ -122,6 +85,9 @@ public final class Strings {
 
 	public String[] getArray(String string) {
 		String[] strings = this.commandMessages.get(string);
-		return messageFormat(strings);
+		if (strings != null)
+			return messageFormat(strings);
+		else
+			return new String[1];
 	}
 }

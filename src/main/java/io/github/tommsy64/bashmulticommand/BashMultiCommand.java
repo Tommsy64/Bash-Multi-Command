@@ -1,10 +1,12 @@
 package io.github.tommsy64.bashmulticommand;
 
+import io.github.tommsy64.bashmulticommand.config.Config;
+import io.github.tommsy64.bashmulticommand.listeners.ChatListener;
+import io.github.tommsy64.bashmulticommand.listeners.LoginListener;
+import io.github.tommsy64.bashmulticommand.locale.Strings;
 import io.github.tommsy64.bashmulticommand.uuid.UUIDManager;
 
 import java.util.UUID;
-
-import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -13,17 +15,18 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class BashMultiCommand extends JavaPlugin {
 
+	// Public static variables
 	public static BashMultiCommand plugin;
-	private static Permission perm;
-	public static Config config;
 	public static Strings strings;
-	private static Boolean enabled = false;
 
+	// Private variables
+	private boolean enabled = false;
+
+	// Listeners
 	private LoginListener loginListener;
 	private ChatListener chatListener;
 
@@ -31,16 +34,19 @@ public final class BashMultiCommand extends JavaPlugin {
 	public void onEnable() {
 		plugin = this;
 
-		if (checkForVault())
-			setUpPermissions();
-		else
+		if (!checkForVault())
 			getLogger().warning(strings.get("vaultNotFound"));
 
-		config = new Config();
+		PlayerManager.setUpPermissions();
+
+		Config.loadConfig();
+
 		strings = new Strings();
+
 		chatListener = new ChatListener();
 		if (loginListener != null)
 			loginListener = new LoginListener();
+
 		enabled = true;
 	}
 
@@ -57,33 +63,12 @@ public final class BashMultiCommand extends JavaPlugin {
 		return true;
 	}
 
-	private void setUpPermissions() {
-		RegisteredServiceProvider<Permission> rsp = this.getServer()
-				.getServicesManager().getRegistration(Permission.class);
-		if (rsp != null)
-			perm = rsp.getProvider();
-	}
-
-	public static boolean hasPermission(Player player, String permission) {
-		if (perm != null)
-			return perm.has(player, permission);
-		else
-			return player.hasPermission(permission);
-	}
-
-	public static boolean hasPermission(CommandSender sender, String permission) {
-		if (!(sender instanceof Player))
-			return true;
-		else
-			return hasPermission((Player) sender, permission);
-	}
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
 		if (label.equalsIgnoreCase("bmctoggle"))
 			label = "bmct";
-		
+
 		if ((args.length == 0 && label.equalsIgnoreCase("bmc"))
 				|| args[0].equalsIgnoreCase("help")) {
 			sender.sendMessage(strings.getArray("help"));
@@ -92,10 +77,13 @@ public final class BashMultiCommand extends JavaPlugin {
 
 		if (label.equalsIgnoreCase("bmct")
 				|| args[0].equalsIgnoreCase("toggle")
-				&& hasPermission(sender, "bashmulticommand.toggle")) {
+				&& PlayerManager.hasPermission(sender,
+						"bashmulticommand.toggle")) {
 
-			if (args.length == 1 || label.equalsIgnoreCase("bmct")
-					&& hasPermission(sender, "bashmulticommand.toggle")) {
+			if (args.length == 1
+					|| label.equalsIgnoreCase("bmct")
+					&& PlayerManager.hasPermission(sender,
+							"bashmulticommand.toggle")) {
 				if (sender instanceof Player)
 					PlayerManager.togglePluginState((Player) sender);
 				else
@@ -104,7 +92,8 @@ public final class BashMultiCommand extends JavaPlugin {
 			}
 
 			if (args[1].equalsIgnoreCase("-g")
-					&& hasPermission(sender, "bashmulticommand.toggle.global")) {
+					&& PlayerManager.hasPermission(sender,
+							"bashmulticommand.toggle.global")) {
 				if (enabled) {
 					onDisable();
 					sender.sendMessage(strings.get("pluginGlobalDisabled"));
@@ -116,7 +105,8 @@ public final class BashMultiCommand extends JavaPlugin {
 			}
 
 			if (args[1] != null
-					&& hasPermission(sender, "bashmulticommand.toggle.others")) {
+					&& PlayerManager.hasPermission(sender,
+							"bashmulticommand.toggle.others")) {
 
 				UUID uuid = UUIDManager.getUUIDFromPlayer(args[1]);
 
@@ -150,7 +140,8 @@ public final class BashMultiCommand extends JavaPlugin {
 		}
 
 		if (args[0].equalsIgnoreCase("reload")
-				&& hasPermission(sender, "bashmulticommand.reload")) {
+				&& PlayerManager.hasPermission(sender,
+						"bashmulticommand.reload")) {
 			onDisable();
 			onEnable();
 			sender.sendMessage(strings.get("reloaded"));
@@ -158,12 +149,13 @@ public final class BashMultiCommand extends JavaPlugin {
 		}
 
 		if (args[0].equalsIgnoreCase("about")
-				&& hasPermission(sender, "bashmulticommand.about")) {
+				&& PlayerManager
+						.hasPermission(sender, "bashmulticommand.about")) {
 			sender.sendMessage(strings.getArray("about"));
 			return true;
 		}
 
 		sender.sendMessage(strings.get("unkownCommand"));
 		return true;
-	}	
+	}
 }

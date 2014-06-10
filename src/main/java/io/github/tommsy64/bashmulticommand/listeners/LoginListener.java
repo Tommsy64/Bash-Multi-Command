@@ -1,5 +1,6 @@
-package io.github.tommsy64.bashmulticommand;
+package io.github.tommsy64.bashmulticommand.listeners;
 
+import io.github.tommsy64.bashmulticommand.BashMultiCommand;
 import io.github.tommsy64.bashmulticommand.uuid.UUIDManager;
 
 import org.bukkit.event.EventHandler;

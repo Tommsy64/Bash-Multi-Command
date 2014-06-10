@@ -1,4 +1,7 @@
-package io.github.tommsy64.bashmulticommand;
+package io.github.tommsy64.bashmulticommand.config;
+
+import io.github.tommsy64.bashmulticommand.BashMultiCommand;
+import io.github.tommsy64.bashmulticommand.PlayerManager;
 
 import java.io.File;
 
@@ -17,20 +20,23 @@ public class Config {
 	public static final FileConfiguration config = BashMultiCommand.plugin
 			.getConfig();
 
-	public Config() {
+	public static void loadConfig() {
 		BashMultiCommand.plugin.saveDefaultConfig();
 		BashMultiCommand.plugin.reloadConfig();
+
 		separator = config.getString("separator");
 		permission = config.getString("permission");
 		language = config.getString("language");
+		autoUpdate = config.getBoolean("autoupdate") == true;
+
 		loadEnabledSates();
 	}
 
-	private void loadEnabledSates() {
+	public static void loadEnabledSates() {
 		if (!new File(dataFile).exists())
 			return;
 		try {
-			PlayerManager.playerEnables = Loader.load(dataFile);
+			PlayerManager.playerEnables = SLAPI.load(dataFile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -38,7 +44,7 @@ public class Config {
 
 	public static void saveEnabledStates() {
 		try {
-			Loader.save(PlayerManager.playerEnables, dataFile);
+			SLAPI.save(PlayerManager.playerEnables, dataFile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

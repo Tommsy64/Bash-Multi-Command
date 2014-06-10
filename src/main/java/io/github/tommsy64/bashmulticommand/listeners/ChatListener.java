@@ -1,4 +1,8 @@
-package io.github.tommsy64.bashmulticommand;
+package io.github.tommsy64.bashmulticommand.listeners;
+
+import io.github.tommsy64.bashmulticommand.BashMultiCommand;
+import io.github.tommsy64.bashmulticommand.PlayerManager;
+import io.github.tommsy64.bashmulticommand.config.Config;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,7 +21,7 @@ public class ChatListener implements Listener {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onAsyncChat(AsyncPlayerChatEvent event) {
 		if (!event.getMessage().contains(Config.separator)
-				|| !BashMultiCommand.hasPermission(event.getPlayer(),
+				|| !PlayerManager.hasPermission(event.getPlayer(),
 						Config.permission)
 				|| !PlayerManager.isEnabled(event.getPlayer().getUniqueId()))
 			return;
@@ -28,7 +32,7 @@ public class ChatListener implements Listener {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onPreCommand(PlayerCommandPreprocessEvent event) {
 		if (!event.getMessage().contains(Config.separator)
-				|| !BashMultiCommand.hasPermission(event.getPlayer(),
+				|| !PlayerManager.hasPermission(event.getPlayer(),
 						Config.permission)
 				|| !PlayerManager.isEnabled(event.getPlayer().getUniqueId()))
 			return;
