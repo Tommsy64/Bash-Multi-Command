@@ -1,7 +1,6 @@
 package io.github.tommsy64.bashmulticommand.command;
 
 import io.github.tommsy64.bashmulticommand.BashMultiCommand;
-import io.github.tommsy64.bashmulticommand.PlayerManager;
 import io.github.tommsy64.bashmulticommand.Utils;
 import io.github.tommsy64.bashmulticommand.command.subcommand.About;
 import io.github.tommsy64.bashmulticommand.command.subcommand.Help;
@@ -10,6 +9,7 @@ import io.github.tommsy64.bashmulticommand.command.subcommand.SubCommand;
 import io.github.tommsy64.bashmulticommand.command.subcommand.Toggle;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +18,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
+import org.bukkit.util.StringUtil;
 
 public class BMCCommandExecutor implements TabExecutor {
 
@@ -35,8 +36,7 @@ public class BMCCommandExecutor implements TabExecutor {
 		}
 
 		if (args.length == 0) {
-			if (PlayerManager.hasPermission(sender,
-					"bashmulticommand.command.help"))
+			if (sender.hasPermission("bashmulticommand.command.help"))
 				sender.sendMessage(getHelpMessage());
 			else
 				sender.sendMessage(BashMultiCommand.strings.get("noPermission"));
@@ -52,11 +52,12 @@ public class BMCCommandExecutor implements TabExecutor {
 			}
 		}
 
-		if (unkownCommand
-				&& PlayerManager.hasPermission(sender,
-						"bashmulticommand.command"))
-			sender.sendMessage(BashMultiCommand.strings.get("unknownCommand")
-					.replaceAll("%command%", args[0]));
+		if (unkownCommand)
+			if (sender.hasPermission("bashmulticommand.command"))
+				sender.sendMessage(BashMultiCommand.strings.get(
+						"unknownCommand").replaceAll("%command%", args[0]));
+			else
+				sender.sendMessage(BashMultiCommand.strings.get("noPermission"));
 		return true;
 	}
 
@@ -90,8 +91,19 @@ public class BMCCommandExecutor implements TabExecutor {
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd,
 			String alias, String[] args) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		ArrayList<String> matchedSubCommands = new ArrayList<String>();
+		for (SubCommand command : commands.values().toArray(new SubCommand[0])) {
+			if (args[0].equalsIgnoreCase(command.toString()))
+				return command.onTabComplete(sender, cmd, alias,
+						Utils.removeFirst(args));
 
+			if (StringUtil.startsWithIgnoreCase(command.toString(), args[0])
+					|| args.length < 0) {
+				matchedSubCommands.add(command.toString());
+			}
+		}
+
+		Collections.sort(matchedSubCommands, String.CASE_INSENSITIVE_ORDER);
+ 		return matchedSubCommands;
+	}
 }

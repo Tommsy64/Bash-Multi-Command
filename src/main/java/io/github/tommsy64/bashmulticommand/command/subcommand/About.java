@@ -1,7 +1,6 @@
 package io.github.tommsy64.bashmulticommand.command.subcommand;
 
 import io.github.tommsy64.bashmulticommand.BashMultiCommand;
-import io.github.tommsy64.bashmulticommand.PlayerManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ public class About extends SubCommand {
 	@Override
 	public void onCommand(CommandSender sender, Command cmd, String alias,
 			String[] args) {
-		if (PlayerManager.hasPermission(sender, "bashmulticommand.about"))
+		if (sender.hasPermission("bashmulticommand.about"))
 			sender.sendMessage(BashMultiCommand.strings.getArray("about"));
 		else
 			sender.sendMessage(BashMultiCommand.strings.get("noPermission"));

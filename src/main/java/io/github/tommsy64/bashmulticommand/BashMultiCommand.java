@@ -55,12 +55,6 @@ public final class BashMultiCommand extends JavaPlugin {
 			return;
 		}
 
-		// Load Vault stuff
-		if (!checkForVault())
-			getLogger().warning(strings.get("vaultNotFound"));
-		else
-			PlayerManager.setUpPermissions();
-
 		// Setup the listeners
 		chatListener = new ChatListener();
 		if (loginListener == null)
@@ -92,11 +86,5 @@ public final class BashMultiCommand extends JavaPlugin {
 			onEnable();
 			return true;
 		}
-	}
-
-	private boolean checkForVault() {
-		if (getServer().getPluginManager().getPlugin("Vault") == null)
-			return false;
-		return true;
 	}
 }

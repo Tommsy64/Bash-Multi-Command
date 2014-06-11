@@ -18,8 +18,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
-import com.google.common.collect.ImmutableList;
-
 public class Toggle extends SubCommand {
 
 	public Toggle() {
@@ -43,13 +41,13 @@ public class Toggle extends SubCommand {
 	public void onCommand(CommandSender sender, Command cmd, String alias,
 			String[] args) {
 
-		if (!PlayerManager.hasPermission(sender, "bashmulticommand.toggle"))
+		if (!sender.hasPermission("bashmulticommand.toggle")) {
 			sender.sendMessage(BashMultiCommand.strings.get("noPermission"));
+			return;
+		}
 
 		// Toggle for sender
-		if (args.length == 0
-				&& PlayerManager.hasPermission(sender,
-						"bashmulticommand.toggle")) {
+		if (args.length == 0 && sender.hasPermission("bashmulticommand.toggle")) {
 			if (sender instanceof Player)
 				PlayerManager.togglePluginState((Player) sender);
 			else
@@ -59,8 +57,7 @@ public class Toggle extends SubCommand {
 
 		// Toggle globally
 		if (args[0].equalsIgnoreCase("-g")) {
-			if (!PlayerManager.hasPermission(sender,
-					"bashmulticommand.toggle.global")) {
+			if (!sender.hasPermission("bashmulticommand.toggle.global")) {
 				sender.sendMessage(BashMultiCommand.strings
 						.get("noPermissionToggleGlobal"));
 				return;
@@ -76,8 +73,7 @@ public class Toggle extends SubCommand {
 
 		// Toggle for others
 		if (args[0] != null
-				&& PlayerManager.hasPermission(sender,
-						"bashmulticommand.toggle.others"))
+				&& sender.hasPermission("bashmulticommand.toggle.others"))
 			toggleOtherPlayer(sender, args[0]);
 		else
 			sender.sendMessage(BashMultiCommand.strings
@@ -116,33 +112,15 @@ public class Toggle extends SubCommand {
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd,
 			String alias, String[] args) {
-		if (args.length == 1) {
-			if (!(sender instanceof Player)) {
-				return ImmutableList.of();
+		ArrayList<String> matchedPlayers = new ArrayList<String>();
+		for (OfflinePlayer oPlayer : sender.getServer().getOfflinePlayers()) {
+			if (StringUtil.startsWithIgnoreCase(oPlayer.getName(), args[0])
+					|| args.length < 0 || args[0].length() == 0) {
+				matchedPlayers.add(oPlayer.getName());
 			}
-
-			String lastWord = args[0];
-			if (lastWord.length() == 0) {
-				return ImmutableList.of();
-			}
-
-			Player senderPlayer = (Player) sender;
-
-			ArrayList<String> matchedPlayers = new ArrayList<String>();
-			for (Player player : sender.getServer().getOnlinePlayers()) {
-				String name = player.getName();
-				if (!senderPlayer.canSee(player) || player.isOp()) {
-					continue;
-				}
-				if (StringUtil.startsWithIgnoreCase(name, lastWord)) {
-					matchedPlayers.add(name);
-				}
-			}
-
-			Collections.sort(matchedPlayers, String.CASE_INSENSITIVE_ORDER);
-			return matchedPlayers;
 		}
-		return ImmutableList.of();
+		Collections.sort(matchedPlayers, String.CASE_INSENSITIVE_ORDER);
+		return matchedPlayers;
 	}
 
 }

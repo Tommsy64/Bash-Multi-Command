@@ -21,8 +21,7 @@ public class ChatListener implements Listener {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onAsyncChat(AsyncPlayerChatEvent event) {
 		if (!event.getMessage().contains(Config.separator)
-				|| !PlayerManager.hasPermission(event.getPlayer(),
-						Config.permission)
+				|| !event.getPlayer().hasPermission(Config.permission)
 				|| !PlayerManager.isEnabled(event.getPlayer().getUniqueId()))
 			return;
 		event.setCancelled(true);
@@ -32,8 +31,7 @@ public class ChatListener implements Listener {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onPreCommand(PlayerCommandPreprocessEvent event) {
 		if (!event.getMessage().contains(Config.separator)
-				|| !PlayerManager.hasPermission(event.getPlayer(),
-						Config.permission)
+				|| !event.getPlayer().hasPermission(Config.permission)
 				|| !PlayerManager.isEnabled(event.getPlayer().getUniqueId()))
 			return;
 		event.setCancelled(true);

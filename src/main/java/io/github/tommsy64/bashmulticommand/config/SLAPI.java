@@ -1,7 +1,6 @@
 package io.github.tommsy64.bashmulticommand.config;
 
 import io.github.tommsy64.bashmulticommand.BashMultiCommand;
-import io.github.tommsy64.bashmulticommand.PlayerManager;
 import io.github.tommsy64.bashmulticommand.Utils;
 
 import java.io.File;
@@ -37,7 +36,7 @@ public class SLAPI {
 
 	public static <T extends Object> void saveObject(T obj, String filePath) {
 		try {
-			SLAPI.save(PlayerManager.playerEnables, filePath);
+			SLAPI.save(obj, filePath);
 		} catch (Exception e) {
 			BashMultiCommand.plugin.getLogger().severe(
 					BashMultiCommand.strings.get("errorSavingFile").replaceAll(
