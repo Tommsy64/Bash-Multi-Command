@@ -11,18 +11,22 @@ import org.bukkit.command.CommandSender;
 public class About extends SubCommand {
 
 	public About() {
-		super(BashMultiCommand.strings.get("commandAbout"),
-				BashMultiCommand.strings.get("commandAboutShortDescription"),
-				BashMultiCommand.strings.get("commandAboutLongDescription"));
+		super(BashMultiCommand.plugin.strings.get("commandAbout"),
+				BashMultiCommand.plugin.strings
+						.get("commandAboutShortDescription"),
+				BashMultiCommand.plugin.strings
+						.get("commandAboutLongDescription"));
 	}
 
 	@Override
 	public void onCommand(CommandSender sender, Command cmd, String alias,
 			String[] args) {
 		if (sender.hasPermission("bashmulticommand.about"))
-			sender.sendMessage(BashMultiCommand.strings.getArray("about"));
+			sender.sendMessage(BashMultiCommand.plugin.strings
+					.getArray("about"));
 		else
-			sender.sendMessage(BashMultiCommand.strings.get("noPermission"));
+			sender.sendMessage(BashMultiCommand.plugin.strings
+					.get("noPermission"));
 	}
 
 	@Override

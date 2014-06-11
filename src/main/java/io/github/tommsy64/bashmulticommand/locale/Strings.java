@@ -47,8 +47,7 @@ public final class Strings {
 		message = message.replaceAll("%pluginrealname%",
 				BashMultiCommand.plugin.getDescription().getName());
 		message = message.replaceAll("%seperator%", Config.separator);
-		message = message.replaceAll("%permission%", Config.permission);
-		message = message.replaceAll("%autoupdate%", Config.autoUpdate + "");
+		message = message.replaceAll("%autoupdate%", Config.autoDownload + "");
 		message = message.replaceAll("%reloadCommand%",
 				this.messages.get("reloadCommand").toString());
 		message = message.replaceAll("%toggleCommand%",

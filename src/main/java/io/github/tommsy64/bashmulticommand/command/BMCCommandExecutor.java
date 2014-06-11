@@ -7,6 +7,8 @@ import io.github.tommsy64.bashmulticommand.command.subcommand.Help;
 import io.github.tommsy64.bashmulticommand.command.subcommand.Reload;
 import io.github.tommsy64.bashmulticommand.command.subcommand.SubCommand;
 import io.github.tommsy64.bashmulticommand.command.subcommand.Toggle;
+import io.github.tommsy64.bashmulticommand.command.subcommand.Update;
+import io.github.tommsy64.bashmulticommand.config.Config;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,13 +41,14 @@ public class BMCCommandExecutor implements TabExecutor {
 			if (sender.hasPermission("bashmulticommand.command.help"))
 				sender.sendMessage(getHelpMessage());
 			else
-				sender.sendMessage(BashMultiCommand.strings.get("noPermission"));
+				sender.sendMessage(BashMultiCommand.plugin.strings
+						.get("noPermission"));
 			return true;
 		}
 
 		for (String command : commands.keySet().toArray(new String[0])) {
-			if (args[0].equalsIgnoreCase(BashMultiCommand.strings.get(command))
-					|| commands.get(command).matchesAlias(alias)) {
+			if (args[0].equalsIgnoreCase(BashMultiCommand.plugin.strings
+					.get(command)) || commands.get(command).matchesAlias(alias)) {
 				commands.get(command).onCommand(sender, cmd, alias,
 						Utils.removeFirst(args));
 				unkownCommand = false;
@@ -54,10 +57,11 @@ public class BMCCommandExecutor implements TabExecutor {
 
 		if (unkownCommand)
 			if (sender.hasPermission("bashmulticommand.command"))
-				sender.sendMessage(BashMultiCommand.strings.get(
+				sender.sendMessage(BashMultiCommand.plugin.strings.get(
 						"unknownCommand").replaceAll("%command%", args[0]));
 			else
-				sender.sendMessage(BashMultiCommand.strings.get("noPermission"));
+				sender.sendMessage(BashMultiCommand.plugin.strings
+						.get("noPermission"));
 		return true;
 	}
 
@@ -66,6 +70,8 @@ public class BMCCommandExecutor implements TabExecutor {
 		commands.put("commandToggle", new Toggle());
 		commands.put("commandReload", new Reload());
 		commands.put("commandAbout", new About());
+		if (Config.autoUpdateEnabled)
+			commands.put("commandUpdate", new Update());
 	}
 
 	public String[] getHelpMessage() {
@@ -75,7 +81,8 @@ public class BMCCommandExecutor implements TabExecutor {
 		else {
 			List<String> newHelpMessage = new ArrayList<String>();
 
-			newHelpMessage.add(BashMultiCommand.strings.get("chatTitle"));
+			newHelpMessage
+					.add(BashMultiCommand.plugin.strings.get("chatTitle"));
 
 			for (String command : commands.keySet().toArray(new String[0])) {
 				newHelpMessage.add(ChatColor.DARK_AQUA + "/bmc "
@@ -104,6 +111,6 @@ public class BMCCommandExecutor implements TabExecutor {
 		}
 
 		Collections.sort(matchedSubCommands, String.CASE_INSENSITIVE_ORDER);
- 		return matchedSubCommands;
+		return matchedSubCommands;
 	}
 }

@@ -11,6 +11,12 @@ messages:
   errorSavingFile: '&4Error saving file at %filepath%'
   false: false
   true: true
+  check: check
+  newUpdate: '%pluginname%&c - A new version of %pluginname%&c is available! Download with /%pluginname%&4 update'
+  noNewUpdate: '%pluginname%&f - No new updates available'
+  downloadSuccess: '%pluginname%&f - Successfully downloaded new version'
+  downloadFailed: '%pluginname%&f - &cDownloading new version failed'
+  incorrectArguments: '%pluginname%&f - Incorrect arguments! Do help /%pluginname%&f help &c%command%&f for more info.'
   pluginDisplayName: '&eB&3MC'
   toggleCommand: toggle
   reloadCommand: reload
@@ -35,14 +41,13 @@ messages:
   commandReloadLongDescription: '&3Completely reloads %pluginname% as if it were a server restart and saves &cEnabled data&3.\n&cEnabled data&3 is the data on whether or not you have %pluginname%&3 enabled'
   commandUpdate: update
   commandUpdateShortDescription: '&fUpdates %pluginname% &fif a new version is found'
-  commandUpdateLongDescription: '&3Checks for a new version of %pluginname%&3 and downloads it if any are available. To install the update, restart the server.'
+  commandUpdateLongDescription: '&3Checks for a new version of %pluginname%&3 and downloads it if any are available.\n&fTo install the update%comma% restart the server.'
   commandToggle: toggle
   commandToggleShortDescription: '&fToggles %pluginname%'
   commandToggleLongDescription: "&3With to %toggleCommand% command%comma% you can:\n&fTurn %pluginname%&f on or off for specific players.\n&3/bmc &ftoggle &c<player=you>\n&fIf you do not specify a player it will select you.\n&fOr turn %pluginname%&f on or off globally by specifying the &c-g&f flag\n&3/bmc &ftoggle &c-g\n&fYou can also use the alias &3/bmct&f or &3/bmctoggle&f to quickly toggle %pluginname%&f for yourself"
 commandmessages:
   about:
   - '&3Seperator  &f-&c %seperator%'
-  - '&3Permission &f-&c %permission%'
   - '&3AutoUpdate &f-&c %autoupdate%'
   - '&3Version   &f- Do /version &3%pluginrealname% &ffor more info'
   

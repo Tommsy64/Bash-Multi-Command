@@ -16,7 +16,7 @@ public class LoginListener implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
-	public void onLogin(PlayerLoginEvent event) {
+	public void UUIDCache(PlayerLoginEvent event) {
 		UUIDManager.addCachedPlayer(event.getPlayer());
 		BashMultiCommand.plugin.getLogger().finer(
 				"Added " + event.getPlayer().getName()

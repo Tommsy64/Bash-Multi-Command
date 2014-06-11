@@ -21,9 +21,11 @@ import org.bukkit.util.StringUtil;
 public class Toggle extends SubCommand {
 
 	public Toggle() {
-		super(BashMultiCommand.strings.get("commandToggle"),
-				BashMultiCommand.strings.get("commandToggleShortDescription"),
-				BashMultiCommand.strings.get("commandToggleLongDescription"));
+		super(BashMultiCommand.plugin.strings.get("commandToggle"),
+				BashMultiCommand.plugin.strings
+						.get("commandToggleShortDescription"),
+				BashMultiCommand.plugin.strings
+						.get("commandToggleLongDescription"));
 
 		// This gets the aliases of the command in the plugin.yml file without
 		// the bmc alias
@@ -42,7 +44,8 @@ public class Toggle extends SubCommand {
 			String[] args) {
 
 		if (!sender.hasPermission("bashmulticommand.toggle")) {
-			sender.sendMessage(BashMultiCommand.strings.get("noPermission"));
+			sender.sendMessage(BashMultiCommand.plugin.strings
+					.get("noPermission"));
 			return;
 		}
 
@@ -51,22 +54,23 @@ public class Toggle extends SubCommand {
 			if (sender instanceof Player)
 				PlayerManager.togglePluginState((Player) sender);
 			else
-				sender.sendMessage(BashMultiCommand.strings.get("playerOnly"));
+				sender.sendMessage(BashMultiCommand.plugin.strings
+						.get("playerOnly"));
 			return;
 		}
 
 		// Toggle globally
 		if (args[0].equalsIgnoreCase("-g")) {
 			if (!sender.hasPermission("bashmulticommand.toggle.global")) {
-				sender.sendMessage(BashMultiCommand.strings
+				sender.sendMessage(BashMultiCommand.plugin.strings
 						.get("noPermissionToggleGlobal"));
 				return;
 			}
 			if (BashMultiCommand.plugin.togglePlugin())
-				sender.sendMessage(BashMultiCommand.strings
+				sender.sendMessage(BashMultiCommand.plugin.strings
 						.get("pluginGlobalEnabled"));
 			else
-				sender.sendMessage(BashMultiCommand.strings
+				sender.sendMessage(BashMultiCommand.plugin.strings
 						.get("pluginGlobalDisabled"));
 			return;
 		}
@@ -76,7 +80,7 @@ public class Toggle extends SubCommand {
 				&& sender.hasPermission("bashmulticommand.toggle.others"))
 			toggleOtherPlayer(sender, args[0]);
 		else
-			sender.sendMessage(BashMultiCommand.strings
+			sender.sendMessage(BashMultiCommand.plugin.strings
 					.get("noPermissionToggleOthers"));
 	}
 
@@ -84,8 +88,8 @@ public class Toggle extends SubCommand {
 		UUID uuid = UUIDManager.getUUIDFromPlayer(player);
 
 		if (uuid == null) {
-			sender.sendMessage(BashMultiCommand.strings.get("playerNotFound")
-					.replaceAll("%player%", player));
+			sender.sendMessage(BashMultiCommand.plugin.strings.get(
+					"playerNotFound").replaceAll("%player%", player));
 			return;
 		}
 
@@ -100,11 +104,11 @@ public class Toggle extends SubCommand {
 			oPlayerName = player;
 
 		if (PlayerManager.togglePluginState(oPlayer.getUniqueId()))
-			sender.sendMessage(BashMultiCommand.strings.get(
+			sender.sendMessage(BashMultiCommand.plugin.strings.get(
 					"pluginPersonalEnabled").replaceAll("%playername%",
 					ChatColor.RED + oPlayerName));
 		else
-			sender.sendMessage(BashMultiCommand.strings.get(
+			sender.sendMessage(BashMultiCommand.plugin.strings.get(
 					"pluginPersonalDisabled").replaceAll("%playername%",
 					ChatColor.RED + oPlayerName));
 	}

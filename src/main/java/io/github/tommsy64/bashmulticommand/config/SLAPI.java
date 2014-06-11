@@ -39,8 +39,8 @@ public class SLAPI {
 			SLAPI.save(obj, filePath);
 		} catch (Exception e) {
 			BashMultiCommand.plugin.getLogger().severe(
-					BashMultiCommand.strings.get("errorSavingFile").replaceAll(
-							"%filepath%", filePath));
+					BashMultiCommand.plugin.strings.get("errorSavingFile")
+							.replaceAll("%filepath%", filePath));
 			e.printStackTrace();
 		}
 	}
@@ -55,7 +55,7 @@ public class SLAPI {
 			return SLAPI.load(filePath);
 		} catch (Exception e) {
 			BashMultiCommand.plugin.getLogger().severe(
-					BashMultiCommand.strings.get("errorLoadingFile")
+					BashMultiCommand.plugin.strings.get("errorLoadingFile")
 							.replaceAll("%filepath%", filePath));
 			e.printStackTrace();
 		}

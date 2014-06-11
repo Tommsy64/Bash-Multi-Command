@@ -1,8 +1,10 @@
 # The character(s) that Bash Multi Command will look for to split a single chat message into multiple ones.
 separator: ';'
-# The permission needed to use Bash Multiple Commands.
-permission: 'bashmulticommand.use'
 # The language to use. You can make your own language file and use that.
 language: en_US
-# Whether or not to autoupdate (Not yet implemented)
-autoupdate: true
+# Whether or not to autoupdate
+updater:
+  # Whether or not the updater is enabled
+  enabled: true
+  # Weather or not to automatically download and install new updates
+  download: true

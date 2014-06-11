@@ -3,7 +3,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.tommsy64</groupId>
 	<artifactId>BashMultiCommand</artifactId>
-	<version>1.0.2</version>
 	<build>
 		<plugins>
 			<plugin>
@@ -30,23 +29,11 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!--<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.2.1</version>
-				<executions>
-					<execution>
-						<id>start-server</id>
-						<phase>install</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<executable>${basedir}/../../Test Server/debug.sh</executable>
-				</configuration>
-			</plugin>-->
+			<!--<plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>exec-maven-plugin</artifactId> 
+				<version>1.2.1</version> <executions> <execution> <id>start-server</id> <phase>install</phase> 
+				<goals> <goal>exec</goal> </goals> </execution> </executions> <configuration> 
+				<executable>${basedir}/../../Test Server/debug.sh</executable> </configuration> 
+				</plugin> -->
 		</plugins>
 	</build>
 	<repositories>
@@ -64,4 +51,5 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
+	<version>1.0.3</version>
 </project>

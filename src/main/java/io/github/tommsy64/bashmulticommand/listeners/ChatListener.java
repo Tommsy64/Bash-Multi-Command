@@ -21,7 +21,7 @@ public class ChatListener implements Listener {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onAsyncChat(AsyncPlayerChatEvent event) {
 		if (!event.getMessage().contains(Config.separator)
-				|| !event.getPlayer().hasPermission(Config.permission)
+				|| !event.getPlayer().hasPermission("bashmulticommand.use")
 				|| !PlayerManager.isEnabled(event.getPlayer().getUniqueId()))
 			return;
 		event.setCancelled(true);
@@ -31,7 +31,7 @@ public class ChatListener implements Listener {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onPreCommand(PlayerCommandPreprocessEvent event) {
 		if (!event.getMessage().contains(Config.separator)
-				|| !event.getPlayer().hasPermission(Config.permission)
+				|| !event.getPlayer().hasPermission("bashmulticommand.use")
 				|| !PlayerManager.isEnabled(event.getPlayer().getUniqueId()))
 			return;
 		event.setCancelled(true);

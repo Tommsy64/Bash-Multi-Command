@@ -13,42 +13,45 @@ import org.bukkit.util.StringUtil;
 public class Help extends SubCommand {
 
 	public Help() {
-		super(BashMultiCommand.strings.get("commandHelp"),
-				BashMultiCommand.strings.get("commandHelpShortDescription"),
-				BashMultiCommand.strings.get("commandHelpLongDescription"));
+		super(BashMultiCommand.plugin.strings.get("commandHelp"),
+				BashMultiCommand.plugin.strings
+						.get("commandHelpShortDescription"),
+				BashMultiCommand.plugin.strings
+						.get("commandHelpLongDescription"));
 	}
 
 	@Override
 	public void onCommand(CommandSender sender, Command cmd, String alias,
 			String[] args) {
 		if (!sender.hasPermission("bashmulticommand.command.help")) {
-			sender.sendMessage(BashMultiCommand.strings.get("noPermission"));
+			sender.sendMessage(BashMultiCommand.plugin.strings
+					.get("noPermission"));
 			return;
 		}
 
 		if (args.length != 0)
 			commandHelp(sender, args);
 		else
-			sender.sendMessage(BashMultiCommand.commandExecutor
+			sender.sendMessage(BashMultiCommand.plugin.commandExecutor
 					.getHelpMessage());
 	}
 
 	private void commandHelp(CommandSender sender, String[] args) {
-		sender.sendMessage(BashMultiCommand.strings.get("chatTitle"));
+		sender.sendMessage(BashMultiCommand.plugin.strings.get("chatTitle"));
 
 		String command = getCommand(args[0]);
 		if (command != null)
-			sender.sendMessage(BashMultiCommand.commandExecutor.commands
+			sender.sendMessage(BashMultiCommand.plugin.commandExecutor.commands
 					.get(command).longDescription);
 		else
-			sender.sendMessage(BashMultiCommand.strings.get("unknownCommand")
-					.replaceAll("%command%", args[0]));
+			sender.sendMessage(BashMultiCommand.plugin.strings.get(
+					"unknownCommand").replaceAll("%command%", args[0]));
 	}
 
 	private String getCommand(String inputCommand) {
-		for (String command : BashMultiCommand.commandExecutor.commands
+		for (String command : BashMultiCommand.plugin.commandExecutor.commands
 				.keySet().toArray(new String[0])) {
-			if (inputCommand.equalsIgnoreCase(BashMultiCommand.strings
+			if (inputCommand.equalsIgnoreCase(BashMultiCommand.plugin.strings
 					.get(command)))
 				return command;
 		}
@@ -59,7 +62,7 @@ public class Help extends SubCommand {
 	public List<String> onTabComplete(CommandSender sender, Command cmd,
 			String alias, String[] args) {
 		ArrayList<String> matchedSubCommands = new ArrayList<String>();
-		for (SubCommand command : BashMultiCommand.commandExecutor.commands
+		for (SubCommand command : BashMultiCommand.plugin.commandExecutor.commands
 				.values().toArray(new SubCommand[0])) {
 			if (StringUtil.startsWithIgnoreCase(command.toString(), args[0])
 					|| args.length < 0) {

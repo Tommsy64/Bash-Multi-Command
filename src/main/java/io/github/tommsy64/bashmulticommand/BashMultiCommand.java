@@ -12,18 +12,23 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.UUID;
 
+import net.gravitydevelopment.updater.Updater;
+import net.gravitydevelopment.updater.Updater.UpdateType;
+
 import org.bukkit.ChatColor;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class BashMultiCommand extends JavaPlugin {
 
-	// Public static variables
+	// Plugin instance
 	public static BashMultiCommand plugin;
-	public static Strings strings;
-	public static BMCCommandExecutor commandExecutor;
 
-	// Private variables
+	public Strings strings;
+	public BMCCommandExecutor commandExecutor;
+	// Updater
+	public Updater updater;
+
 	private boolean enabled = false;
 	private final String enabledDataPath = getDataFolder() + File.separator
 			+ "enabledData.bin";
@@ -60,12 +65,25 @@ public final class BashMultiCommand extends JavaPlugin {
 		if (loginListener == null)
 			loginListener = new LoginListener();
 
+		// Load updater
+		if (Config.autoUpdateEnabled)
+			if (Config.autoDownload)
+				loadUpdator(Updater.UpdateType.DEFAULT);
+			else
+				loadUpdator(Updater.UpdateType.NO_DOWNLOAD);
+
 		// Load commands
 		commandExecutor = new BMCCommandExecutor();
 		commandExecutor.loadCommands();
 		getCommand("BashMultiCommand").setExecutor(commandExecutor);
 
 		enabled = true;
+	}
+
+	public void loadUpdator(UpdateType updateType) {
+		if (Config.autoUpdateEnabled)
+			this.updater = new Updater(BashMultiCommand.plugin, 80942,
+					BashMultiCommand.plugin.getFile(), updateType, false);
 	}
 
 	@Override

@@ -11,22 +11,25 @@ import org.bukkit.command.CommandSender;
 public class Reload extends SubCommand {
 
 	public Reload() {
-		super(BashMultiCommand.strings.get("commandReload"),
-				BashMultiCommand.strings.get("commandReloadShortDescription"),
-				BashMultiCommand.strings.get("commandReloadLongDescription"));
+		super(BashMultiCommand.plugin.strings.get("commandReload"),
+				BashMultiCommand.plugin.strings
+						.get("commandReloadShortDescription"),
+				BashMultiCommand.plugin.strings
+						.get("commandReloadLongDescription"));
 	}
 
 	@Override
 	public void onCommand(CommandSender sender, Command cmd, String alias,
 			String[] args) {
 		if (!sender.hasPermission("bashmulticommand.reload")) {
-			sender.sendMessage(BashMultiCommand.strings.get("noPermission"));
+			sender.sendMessage(BashMultiCommand.plugin.strings
+					.get("noPermission"));
 			return;
 		}
 
 		BashMultiCommand.plugin.onDisable();
 		BashMultiCommand.plugin.onEnable();
-		sender.sendMessage(BashMultiCommand.strings.get("reloaded"));
+		sender.sendMessage(BashMultiCommand.plugin.strings.get("reloaded"));
 	}
 
 	@Override

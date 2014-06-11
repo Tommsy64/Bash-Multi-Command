@@ -14,18 +14,18 @@ public class PlayerManager {
 		if (playerEnables.containsKey(playerUUID)) {
 			if (playerEnables.get(playerUUID)) {
 				playerEnables.put(playerUUID, false);
-				player.sendMessage(BashMultiCommand.strings.get(
+				player.sendMessage(BashMultiCommand.plugin.strings.get(
 						"pluginPersonalDisabled").replaceAll(
 						"for %playername%", ""));
 			} else {
 				playerEnables.put(playerUUID, true);
-				player.sendMessage(BashMultiCommand.strings.get(
+				player.sendMessage(BashMultiCommand.plugin.strings.get(
 						"pluginPersonalEnabled").replaceAll("for %playername%",
 						""));
 			}
 		} else {
 			playerEnables.put(playerUUID, true);
-			player.sendMessage(BashMultiCommand.strings.get(
+			player.sendMessage(BashMultiCommand.plugin.strings.get(
 					"pluginPersonalEnabled").replaceAll("for %playername%", ""));
 		}
 	}

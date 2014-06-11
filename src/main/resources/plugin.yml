@@ -31,6 +31,11 @@ permissions:
   bashmulticommand.update:
     description: Allows you to update Bash Multi Command
     default: op
+    children:
+      bashmulticommand.update.see: true
+  bashmulticommand.update.see:
+    description: Allows you to update Bash Multi Command
+    default: op
   bashmulticommand.about:
     description: Allows you to view basic info about Bash Multi Command
     default: true
