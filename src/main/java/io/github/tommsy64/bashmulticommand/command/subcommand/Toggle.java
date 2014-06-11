@@ -43,8 +43,11 @@ public class Toggle extends SubCommand {
 	public void onCommand(CommandSender sender, Command cmd, String alias,
 			String[] args) {
 
+		if (!PlayerManager.hasPermission(sender, "bashmulticommand.toggle"))
+			sender.sendMessage(BashMultiCommand.strings.get("noPermission"));
+
 		// Toggle for sender
-		if (args[0] == null
+		if (args.length == 0
 				&& PlayerManager.hasPermission(sender,
 						"bashmulticommand.toggle")) {
 			if (sender instanceof Player)
@@ -55,9 +58,13 @@ public class Toggle extends SubCommand {
 		}
 
 		// Toggle globally
-		if (args[0].equalsIgnoreCase("-g")
-				&& PlayerManager.hasPermission(sender,
-						"bashmulticommand.toggle.global")) {
+		if (args[0].equalsIgnoreCase("-g")) {
+			if (!PlayerManager.hasPermission(sender,
+					"bashmulticommand.toggle.global")) {
+				sender.sendMessage(BashMultiCommand.strings
+						.get("noPermissionToggleGlobal"));
+				return;
+			}
 			if (BashMultiCommand.plugin.togglePlugin())
 				sender.sendMessage(BashMultiCommand.strings
 						.get("pluginGlobalEnabled"));
@@ -72,6 +79,9 @@ public class Toggle extends SubCommand {
 				&& PlayerManager.hasPermission(sender,
 						"bashmulticommand.toggle.others"))
 			toggleOtherPlayer(sender, args[0]);
+		else
+			sender.sendMessage(BashMultiCommand.strings
+					.get("noPermissionToggleOthers"));
 	}
 
 	private void toggleOtherPlayer(CommandSender sender, String player) {

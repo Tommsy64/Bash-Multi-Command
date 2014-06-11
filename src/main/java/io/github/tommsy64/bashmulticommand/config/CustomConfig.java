@@ -1,6 +1,7 @@
 package io.github.tommsy64.bashmulticommand.config;
 
 import io.github.tommsy64.bashmulticommand.BashMultiCommand;
+import io.github.tommsy64.bashmulticommand.Utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,21 +51,16 @@ public class CustomConfig {
 
 	public void loadFile() {
 		if (file == null) {
-			createDirectory();
+			Utils.createDirectory(fullPath);
 			file = new File(this.fullPath, this.configName);
 			if (!this.file.exists())
-				BashMultiCommand.plugin.saveResource(this.path + File.separator
-						+ this.configName, false);
-		}
-	}
-
-	private void createDirectory() {
-		File f = new File(fullPath);
-		if (f.exists() && f.isDirectory())
-			return;
-		else {
-			f.delete();
-			f.mkdirs();
+				try {
+					BashMultiCommand.plugin.saveResource(this.path
+							+ File.separator + this.configName, false);
+				} catch (Exception e) {
+					BashMultiCommand.plugin.getLogger().fine(
+							"Resource " + this.configName + " was not found!");
+				}
 		}
 	}
 }

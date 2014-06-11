@@ -1,26 +1,37 @@
 package io.github.tommsy64.bashmulticommand;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Utils {
 
-	public static String[] removeFirst(String[] strings) {
-		String[] newStrings = new String[strings.length];
-		for (int i = 0; i + 1 < strings.length; i++) {
-			newStrings[i] = strings[i + 1];
+	public static String[] removeFirst(String[] array) {
+		List<String> newStrings = new ArrayList<String>();
+		for (int i = 0; i + 1 < array.length; i++) {
+			newStrings.add(array[i + 1]);
 		}
-		return newStrings;
+		return newStrings.toArray(new String[0]);
 	}
 
 	public static String[] remove(String str, String[] array) {
-		List<String> myList = new ArrayList<String>();
+		List<String> newArray = new ArrayList<String>();
 
 		int x = 0;
 		for (int i = 0; i < array.length; i++) {
 			if (!array[i].equalsIgnoreCase(str))
-				myList.add(array[i + x]);
+				newArray.add(array[i + x]);
 		}
-		return myList.toArray(new String[0]);
+		return newArray.toArray(new String[0]);
+	}
+
+	public static void createDirectory(String path) {
+		File f = new File(path);
+		if (f.exists() && f.isDirectory())
+			return;
+		else {
+			f.delete();
+			f.mkdirs();
+		}
 	}
 }

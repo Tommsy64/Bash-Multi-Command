@@ -22,6 +22,8 @@ public class About extends SubCommand {
 			String[] args) {
 		if (PlayerManager.hasPermission(sender, "bashmulticommand.about"))
 			sender.sendMessage(BashMultiCommand.strings.getArray("about"));
+		else
+			sender.sendMessage(BashMultiCommand.strings.get("noPermission"));
 	}
 
 	@Override

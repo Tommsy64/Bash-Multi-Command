@@ -1,5 +1,9 @@
 package io.github.tommsy64.bashmulticommand.uuid;
 
+import io.github.tommsy64.bashmulticommand.BashMultiCommand;
+import io.github.tommsy64.bashmulticommand.config.SLAPI;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,6 +24,7 @@ import org.bukkit.entity.Player;
  * Date created: 17:13:57 2 apr. 2014
  * 
  * @author Staartvin
+ * @author Tommsy64
  * 
  */
 public class UUIDManager {
@@ -444,5 +449,34 @@ public class UUIDManager {
 	private static void removeCachedPlayer(String playerName) {
 		cachedUUIDs.remove(playerName);
 		lastCached.remove(playerName);
+	}
+
+	private static final String uuidsFile = BashMultiCommand.plugin
+			.getDataFolder()
+			+ File.separator
+			+ "cache"
+			+ File.separator
+			+ "UUIDs.bin";
+
+	private static final String lastCachedFile = BashMultiCommand.plugin
+			.getDataFolder()
+			+ File.separator
+			+ "cache"
+			+ File.separator
+			+ "data.bin";
+
+	public static void saveCache() {
+		SLAPI.saveObject(cachedUUIDs, uuidsFile);
+		SLAPI.saveObject(lastCached, lastCachedFile);
+	}
+
+	public static void loadCache() {
+		HashMap<String, UUID> loadedUUIDsFile = SLAPI.loadFile(uuidsFile);
+		HashMap<String, Long> loadedLastCached = SLAPI.loadFile(lastCachedFile);
+
+		if (loadedUUIDsFile != null)
+			cachedUUIDs = loadedUUIDsFile;
+		if (loadedLastCached != null)
+			lastCached = loadedLastCached;
 	}
 }

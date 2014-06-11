@@ -33,7 +33,7 @@ permissions:
     default: op
   bashmulticommand.about:
     description: Allows you to view basic info about Bash Multi Command
-    default: op
+    default: true
   bashmulticommand.toggle:
     description: Allows you to toggle Bash Multi Command for yourself
     default: true
@@ -51,3 +51,8 @@ permissions:
   bashmulticommand.command:
     description: Allows you to use the /bmc command
     default: op
+  bashmulticommand.command.help:
+    description: Allows you to use the /bmc help command
+    default: op
+    children:
+      bashmulticommand.command: true

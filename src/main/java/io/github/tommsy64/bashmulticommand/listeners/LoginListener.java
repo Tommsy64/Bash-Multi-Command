@@ -15,8 +15,12 @@ public class LoginListener implements Listener {
 				.registerEvents(this, BashMultiCommand.plugin);
 	}
 
-	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = false)
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onLogin(PlayerLoginEvent event) {
 		UUIDManager.addCachedPlayer(event.getPlayer());
+		BashMultiCommand.plugin.getLogger().finer(
+				"Added " + event.getPlayer().getName()
+						+ " to the UUID cache with UUID "
+						+ event.getPlayer().getUniqueId().toString());
 	}
 }
