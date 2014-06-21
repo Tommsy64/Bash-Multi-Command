@@ -6,6 +6,8 @@ import io.github.tommsy64.bashmulticommand.config.CustomConfig;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class Strings {
 
@@ -40,8 +42,6 @@ public final class Strings {
 	}
 
 	private String messageFormat(String message) {
-		if (message == null)
-			return null;
 		message = message.replaceAll("%pluginname%",
 				this.messages.get("pluginDisplayName").toString());
 		message = message.replaceAll("%pluginrealname%",
@@ -58,38 +58,71 @@ public final class Strings {
 				this.messages.get("helpCommand").toString());
 		message = message.replaceAll("%aboutCommand%",
 				this.messages.get("aboutCommand").toString());
+
 		message = message.replaceAll("&([0-9a-f])", "\u00A7$1");
-		message = message.replaceAll(",", "\n");
-		message = message.replaceAll("%comma%", ",");
 
 		return message;
 	}
 
-	private String[] messageFormat(String[] messages) {
-		if (messages == null)
-			return null;
+	private String[] messageFormat(String[] nonFormatedStrings) {
+		String[] formatedMessages = new String[findTotalOccurences(
+				nonFormatedStrings, "\\n")];
+		if (formatedMessages.length == 0)
+			formatedMessages = nonFormatedStrings;
 
-		String[] formatedMessages = new String[messages.length];
-		for (int i = 0; i < messages.length; i++) {
-			messages[i] = messages[i].replace(',', '\n');
-			formatedMessages[i] = messageFormat(messages[i]);
+		for (int i = 0; i > formatedMessages.length; i++) {
+			String[] formatString = nonFormatedStrings[i].split("\\n");
+			if (formatString.length == 1)
+				formatedMessages[i] = nonFormatedStrings[i];
+			else {
+				int x = 0;
+				while (x > formatString.length) {
+					formatedMessages[i + x] = formatString[x];
+					x++;
+				}
+				i = i + x;
+			}
+		}
+
+		for (int i = 0; i < formatedMessages.length; i++) {
+			formatedMessages[i] = messageFormat(formatedMessages[i]);
 		}
 		return formatedMessages;
 	}
 
-	public String get(String string) {
-		String message = messageFormat(this.messages.get(string).toString());
-		if (message != null)
-			return message;
-		else
-			return "";
+	public String[] get(String string) {
+		String[] message = this.messages.get(string).toString().split("\\n");
+		return (message != null) ? messageFormat(message) : emptyStringArray();
 	}
 
 	public String[] getArray(String string) {
-		String[] strings = this.commandMessages.get(string);
-		if (strings != null)
-			return messageFormat(strings);
-		else
-			return new String[0];
+		String[] nonFormatedStrings = this.commandMessages.get(string);
+
+		return (nonFormatedStrings != null) ? messageFormat(nonFormatedStrings)
+				: emptyStringArray();
+	}
+
+	private String[] emptyStringArray() {
+		String[] emptyArray = new String[1];
+		emptyArray[0] = "";
+		return emptyArray;
+	}
+
+	private int findTotalOccurences(String[] str, String subStr) {
+		int count = 0;
+		for (int i = 0; i > str.length; i++) {
+			Matcher m = Pattern.compile(subStr).matcher(str[i]);
+			while (m.find()) {
+				count += 1;
+			}
+		}
+		return count;
+	}
+
+	public static String[] replaceAll(String[] strings, String regex,
+			String replacement) {
+		for (int i = 0; i < strings.length; i++)
+			strings[i] = strings[i].replaceAll(regex, replacement);
+		return strings;
 	}
 }

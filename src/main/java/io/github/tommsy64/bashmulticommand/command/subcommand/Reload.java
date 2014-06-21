@@ -11,9 +11,9 @@ import org.bukkit.command.CommandSender;
 public class Reload extends SubCommand {
 
 	public Reload() {
-		super(BashMultiCommand.plugin.strings.get("commandReload"),
+		super(BashMultiCommand.plugin.strings.get("commandReload")[0],
 				BashMultiCommand.plugin.strings
-						.get("commandReloadShortDescription"),
+						.get("commandReloadShortDescription")[0],
 				BashMultiCommand.plugin.strings
 						.get("commandReloadLongDescription"));
 	}

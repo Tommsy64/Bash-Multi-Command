@@ -6,7 +6,13 @@
 
 package net.gravitydevelopment.updater;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -43,6 +49,7 @@ public class Updater {
     private Plugin plugin;
     private UpdateType type;
     private String versionName;
+    private String version;
     private String versionLink;
     private String versionType;
     private String versionGameVersion;
@@ -462,7 +469,7 @@ public class Updater {
             final String localVersion = this.plugin.getDescription().getVersion();
             if (title.split(delimiter).length == 2) {
                 final String remoteVersion = title.split(delimiter)[1].split(" ")[0]; // Get the newest file's version number
-
+                this.version = remoteVersion;
                 if (this.hasTag(localVersion) || !this.shouldUpdate(localVersion, remoteVersion)) {
                     // We already have the latest version, or this build is tagged for no-update
                     this.result = Updater.UpdateResult.NO_UPDATE;
@@ -585,7 +592,7 @@ public class Updater {
                 if (Updater.this.read()) {
                     if (Updater.this.versionCheck(Updater.this.versionName)) {
                         if ((Updater.this.versionLink != null) && (Updater.this.type != UpdateType.NO_DOWNLOAD)) {
-                            String name = Updater.this.file.getName();
+                            String name = Updater.this.file.getName().replace("-" + Updater.this.plugin.getDescription().getVersion() , "-" + Updater.this.version);
                             // If it's a zip file, it shouldn't be downloaded as the plugin's name
                             if (Updater.this.versionLink.endsWith(".zip")) {
                                 final String[] split = Updater.this.versionLink.split("/");
@@ -593,7 +600,7 @@ public class Updater {
                             }
                             Updater.this.saveFile(new File(Updater.this.plugin.getDataFolder().getParent(), Updater.this.updateFolder), name, Updater.this.versionLink);
                         } else {
-                            Updater.this.result = UpdateResult.UPDATE_AVAILABLE;
+                        	Updater.this.result = UpdateResult.UPDATE_AVAILABLE;
                         }
                     }
                 }

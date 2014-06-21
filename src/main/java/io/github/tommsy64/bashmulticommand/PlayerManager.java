@@ -1,5 +1,7 @@
 package io.github.tommsy64.bashmulticommand;
 
+import io.github.tommsy64.bashmulticommand.locale.Strings;
+
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -14,19 +16,23 @@ public class PlayerManager {
 		if (playerEnables.containsKey(playerUUID)) {
 			if (playerEnables.get(playerUUID)) {
 				playerEnables.put(playerUUID, false);
-				player.sendMessage(BashMultiCommand.plugin.strings.get(
-						"pluginPersonalDisabled").replaceAll(
+				player.sendMessage(Strings.replaceAll(
+						BashMultiCommand.plugin.strings
+								.get("pluginPersonalDisabled"),
 						"for %playername%", ""));
 			} else {
 				playerEnables.put(playerUUID, true);
-				player.sendMessage(BashMultiCommand.plugin.strings.get(
-						"pluginPersonalEnabled").replaceAll("for %playername%",
-						""));
+				player.sendMessage(Strings.replaceAll(
+						BashMultiCommand.plugin.strings
+								.get("pluginPersonalEnabled"),
+						"for %playername%", ""));
 			}
 		} else {
 			playerEnables.put(playerUUID, true);
-			player.sendMessage(BashMultiCommand.plugin.strings.get(
-					"pluginPersonalEnabled").replaceAll("for %playername%", ""));
+			player.sendMessage(Strings.replaceAll(
+					BashMultiCommand.plugin.strings
+							.get("pluginPersonalEnabled"), "for %playername%",
+					""));
 		}
 	}
 

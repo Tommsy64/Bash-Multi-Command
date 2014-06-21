@@ -1,6 +1,7 @@
 package io.github.tommsy64.bashmulticommand.uuid;
 
 import io.github.tommsy64.bashmulticommand.BashMultiCommand;
+import io.github.tommsy64.bashmulticommand.Utils;
 import io.github.tommsy64.bashmulticommand.config.SLAPI;
 
 import java.io.File;
@@ -466,7 +467,10 @@ public class UUIDManager {
 			+ "data.bin";
 
 	public static void saveCache() {
+		Utils.createDirectoryFromFile(uuidsFile);
 		SLAPI.saveObject(cachedUUIDs, uuidsFile);
+
+		Utils.createDirectoryFromFile(lastCachedFile);
 		SLAPI.saveObject(lastCached, lastCachedFile);
 	}
 

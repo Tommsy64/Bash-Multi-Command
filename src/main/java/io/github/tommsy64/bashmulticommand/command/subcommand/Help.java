@@ -1,6 +1,7 @@
 package io.github.tommsy64.bashmulticommand.command.subcommand;
 
 import io.github.tommsy64.bashmulticommand.BashMultiCommand;
+import io.github.tommsy64.bashmulticommand.locale.Strings;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,9 +14,9 @@ import org.bukkit.util.StringUtil;
 public class Help extends SubCommand {
 
 	public Help() {
-		super(BashMultiCommand.plugin.strings.get("commandHelp"),
+		super(BashMultiCommand.plugin.strings.get("commandHelp")[0],
 				BashMultiCommand.plugin.strings
-						.get("commandHelpShortDescription"),
+						.get("commandHelpShortDescription")[0],
 				BashMultiCommand.plugin.strings
 						.get("commandHelpLongDescription"));
 	}
@@ -44,15 +45,16 @@ public class Help extends SubCommand {
 			sender.sendMessage(BashMultiCommand.plugin.commandExecutor.commands
 					.get(command).longDescription);
 		else
-			sender.sendMessage(BashMultiCommand.plugin.strings.get(
-					"unknownCommand").replaceAll("%command%", args[0]));
+			sender.sendMessage(Strings.replaceAll(
+					BashMultiCommand.plugin.strings.get("unknownCommand"),
+					"%command%", args[0]));
 	}
 
 	private String getCommand(String inputCommand) {
 		for (String command : BashMultiCommand.plugin.commandExecutor.commands
 				.keySet().toArray(new String[0])) {
 			if (inputCommand.equalsIgnoreCase(BashMultiCommand.plugin.strings
-					.get(command)))
+					.get(command)[0]))
 				return command;
 		}
 		return null;

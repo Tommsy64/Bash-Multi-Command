@@ -1,6 +1,6 @@
 name: BashMultiCommand
 main: io.github.tommsy64.bashmulticommand.BashMultiCommand
-version: 1.0.1
+version: 1.0.3
 author: Tommsy64
 description: This plugin lets you type multiple chat messages with one chat message using a separator.
 website: http://dev.bukkit.org/bukkit-plugins/bash-multi-command/

@@ -8,11 +8,11 @@ import org.bukkit.command.CommandSender;
 public abstract class SubCommand {
 	public final String commandName;
 	public final String shortDescription;
-	public final String longDescription;
+	public final String[] longDescription;
 	public String[] aliases;
 
 	public SubCommand(String commandName, String shortDescription,
-			String longDescription) {
+			String[] longDescription) {
 		this.commandName = commandName;
 		this.shortDescription = shortDescription;
 		this.longDescription = longDescription;

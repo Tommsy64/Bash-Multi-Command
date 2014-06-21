@@ -1,6 +1,7 @@
 package io.github.tommsy64.bashmulticommand.command.subcommand;
 
 import io.github.tommsy64.bashmulticommand.BashMultiCommand;
+import io.github.tommsy64.bashmulticommand.locale.Strings;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,9 +16,9 @@ import org.bukkit.util.StringUtil;
 public class Update extends SubCommand {
 
 	public Update() {
-		super(BashMultiCommand.plugin.strings.get("commandUpdate"),
+		super(BashMultiCommand.plugin.strings.get("commandUpdate")[0],
 				BashMultiCommand.plugin.strings
-						.get("commandUpdateShortDescription"),
+						.get("commandUpdateShortDescription")[0],
 				BashMultiCommand.plugin.strings
 						.get("commandUpdateLongDescription"));
 	}
@@ -42,7 +43,7 @@ public class Update extends SubCommand {
 		}
 
 		if (args[0].equalsIgnoreCase(BashMultiCommand.plugin.strings
-				.get("check"))) {
+				.get("check")[0])) {
 			BashMultiCommand.plugin.loadUpdator(Updater.UpdateType.NO_DOWNLOAD);
 			if (BashMultiCommand.plugin.updater.getResult() == Updater.UpdateResult.UPDATE_AVAILABLE)
 				sender.sendMessage(BashMultiCommand.plugin.strings
@@ -51,9 +52,9 @@ public class Update extends SubCommand {
 				sender.sendMessage(BashMultiCommand.plugin.strings
 						.get("noNewUpdate"));
 		} else
-			sender.sendMessage(BashMultiCommand.plugin.strings.get(
-					"incorrectArguments").replaceAll("%command%",
-					this.commandName));
+			sender.sendMessage(Strings.replaceAll(
+					BashMultiCommand.plugin.strings.get("incorrectArguments"),
+					"%command%", this.commandName));
 	}
 
 	@Override
@@ -63,16 +64,16 @@ public class Update extends SubCommand {
 
 		if (args[0].equalsIgnoreCase(this.commandName)
 				|| args[0].equalsIgnoreCase(BashMultiCommand.plugin.strings
-						.get("check")))
+						.get("check")[0]))
 			return new ArrayList<String>();
 
 		if (StringUtil.startsWithIgnoreCase(this.commandName, args[0])
 				|| args.length < 1)
 			matchedArgs.add(this.commandName);
 		if (StringUtil.startsWithIgnoreCase(
-				BashMultiCommand.plugin.strings.get("check"), args[0])
+				BashMultiCommand.plugin.strings.get("check")[0], args[0])
 				|| args.length < 1)
-			matchedArgs.add(BashMultiCommand.plugin.strings.get("check"));
+			matchedArgs.add(BashMultiCommand.plugin.strings.get("check")[0]);
 
 		Collections.sort(matchedArgs, String.CASE_INSENSITIVE_ORDER);
 		return matchedArgs;

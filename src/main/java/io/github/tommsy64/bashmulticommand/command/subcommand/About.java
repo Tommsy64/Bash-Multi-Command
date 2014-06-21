@@ -11,9 +11,9 @@ import org.bukkit.command.CommandSender;
 public class About extends SubCommand {
 
 	public About() {
-		super(BashMultiCommand.plugin.strings.get("commandAbout"),
+		super(BashMultiCommand.plugin.strings.get("commandAbout")[0],
 				BashMultiCommand.plugin.strings
-						.get("commandAboutShortDescription"),
+						.get("commandAboutShortDescription")[0],
 				BashMultiCommand.plugin.strings
 						.get("commandAboutLongDescription"));
 	}

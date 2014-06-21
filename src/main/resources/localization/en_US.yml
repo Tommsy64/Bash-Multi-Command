@@ -1,53 +1,53 @@
 messages:
   pluginEnabled: enabled
-  vaultNotFound: '&4Vault not found! Using built in permission checks.'
-  pluginGlobalDisabled: '%pluginname% &fhas been &cglobally &fdisabled'
-  pluginGlobalEnabled: '%pluginname% &fhas been &cglobally &fenabled'
-  pluginPersonalDisabled: '%pluginname% &fhas been disabled for %playername%'
-  pluginPersonalEnabled: '%pluginname% &fhas been enabled for %playername%'
-  reloaded: '%pluginname% reloaded'
-  errorLoadingFile: '&4Error loading file from %filepath%'
-  errorCreatingFile: '&4Error creating file at %filepath%'
-  errorSavingFile: '&4Error saving file at %filepath%'
+  vaultNotFound: "&4Vault not found! Using built in permission checks."
+  pluginGlobalDisabled: "%pluginname% &fhas been &cglobally &fdisabled"
+  pluginGlobalEnabled: "%pluginname% &fhas been &cglobally &fenabled"
+  pluginPersonalDisabled: "%pluginname% &fhas been disabled for %playername%"
+  pluginPersonalEnabled: "%pluginname% &fhas been enabled for %playername%"
+  reloaded: "%pluginname% reloaded"
+  errorLoadingFile: "&4Error loading file from %filepath%"
+  errorCreatingFile: "&4Error creating file at %filepath%"
+  errorSavingFile: "&4Error saving file at %filepath%"
   false: false
   true: true
   check: check
-  newUpdate: '%pluginname%&c - A new version of %pluginname%&c is available! Download with /%pluginname%&4 update'
-  noNewUpdate: '%pluginname%&f - No new updates available'
-  downloadSuccess: '%pluginname%&f - Successfully downloaded new version'
-  downloadFailed: '%pluginname%&f - &cDownloading new version failed'
-  incorrectArguments: '%pluginname%&f - Incorrect arguments! Do help /%pluginname%&f help &c%command%&f for more info.'
-  pluginDisplayName: '&eB&3MC'
+  newUpdate: "%pluginname%&c - A new version of %pluginname%&c is available! Download with /%pluginname%&4 update"
+  noNewUpdate: "%pluginname%&f - No new updates available"
+  downloadSuccess: "%pluginname%&f - Successfully downloaded new version"
+  downloadFailed: "%pluginname%&f - &cDownloading new version failed"
+  incorrectArguments: "%pluginname%&f - Incorrect arguments! Do help /%pluginname%&f help &c%command%&f for more info."
+  pluginDisplayName: "&eB&3MC"
   toggleCommand: toggle
   reloadCommand: reload
   updateCommand: update
   aboutCommand: about
   helpCommand: help
-  noPermission: '&4You do not have permission to execute that command!'
-  noPermissionToggleOthers: '&4You do not have permission to toggle %pluginname%&4 for other players!'
-  noPermissionToggleGlobal: '&4You do not have permission to toggle %pluginname%&4 globally!'
-  playerOnly: '&cOnly players can execute that command!'
-  unknownCommand: '%pluginname%&f - Command &3%command% not found.'
-  playerNotFound: '&c%player% was not found!'
-  chatTitle: '------- %pluginname% &f-------'
+  noPermission: "&4You do not have permission to execute that command!"
+  noPermissionToggleOthers: "&4You do not have permission to toggle %pluginname%&4 for other players!"
+  noPermissionToggleGlobal: "&4You do not have permission to toggle %pluginname%&4 globally!"
+  playerOnly: "&cOnly players can execute that command!"
+  unknownCommand: "%pluginname%&f - Command &3%command% not found."
+  playerNotFound: "&c%player% was not found!"
+  chatTitle: "------- %pluginname% &f-------"
   commandHelp: help
-  commandHelpShortDescription: '&fDisplay more info for the specified command.'
+  commandHelpShortDescription: "&fDisplay more info for the specified command."
   commandHelpLongDescription: "&3Displays more info for the specified subcommand.\n&cUsage: &3/bmc %helpCommand%&f &c<subcommand>&f"
   commandAbout: about
-  commandAboutShortDescription: '&fDisplays some basic info'
-  commandAboutLongDescription: '&3Displays some basic info about %pluginname%&f'
+  commandAboutShortDescription: "&fDisplays some basic info"
+  commandAboutLongDescription: "&3Displays some basic info about %pluginname%&f"
   commandReload: reload
-  commandReloadShortDescription: '&fReloads %pluginname%'
-  commandReloadLongDescription: '&3Completely reloads %pluginname% as if it were a server restart and saves &cEnabled data&3.\n&cEnabled data&3 is the data on whether or not you have %pluginname%&3 enabled'
+  commandReloadShortDescription: "&fReloads %pluginname%"
+  commandReloadLongDescription: "&3Completely reloads %pluginname% as if it were a server restart and saves &cEnabled data&3.\n&cEnabled data&3 is the data on whether or not you have %pluginname%&3 enabled"
   commandUpdate: update
-  commandUpdateShortDescription: '&fUpdates %pluginname% &fif a new version is found'
-  commandUpdateLongDescription: '&3Checks for a new version of %pluginname%&3 and downloads it if any are available.\n&fTo install the update%comma% restart the server.'
+  commandUpdateShortDescription: "&fUpdates %pluginname% &fif a new version is found"
+  commandUpdateLongDescription: "&3Checks for a new version of %pluginname%&3 and downloads it if any are available.\n&fTo install the update, restart the server."
   commandToggle: toggle
-  commandToggleShortDescription: '&fToggles %pluginname%'
-  commandToggleLongDescription: "&3With to %toggleCommand% command%comma% you can:\n&fTurn %pluginname%&f on or off for specific players.\n&3/bmc &ftoggle &c<player=you>\n&fIf you do not specify a player it will select you.\n&fOr turn %pluginname%&f on or off globally by specifying the &c-g&f flag\n&3/bmc &ftoggle &c-g\n&fYou can also use the alias &3/bmct&f or &3/bmctoggle&f to quickly toggle %pluginname%&f for yourself"
+  commandToggleShortDescription: "&fToggles %pluginname%"
+  commandToggleLongDescription: "&3With to %toggleCommand% command, you can:\n&fTurn %pluginname%&f on or off for specific players.\n&3/bmc &ftoggle &c<player=you>\n&fIf you do not specify a player it will select you.\n&fOr turn %pluginname%&f on or off globally by specifying the &c-g&f flag\n&3/bmc &ftoggle &c-g\n&fYou can also use the alias &3/bmct&f or &3/bmctoggle&f to quickly toggle %pluginname%&f for yourself"
 commandmessages:
   about:
-  - '&3Seperator  &f-&c %seperator%'
-  - '&3AutoUpdate &f-&c %autoupdate%'
-  - '&3Version   &f- Do /version &3%pluginrealname% &ffor more info'
+  - "&3Seperator  &f-&c %seperator%"
+  - "&3AutoUpdate &f-&c %autoupdate%"
+  - "&3Version   &f- Do /version &3%pluginrealname% &ffor more info"
   

@@ -2,9 +2,11 @@ package io.github.tommsy64.bashmulticommand.config;
 
 import io.github.tommsy64.bashmulticommand.BashMultiCommand;
 import io.github.tommsy64.bashmulticommand.Utils;
+import io.github.tommsy64.bashmulticommand.locale.Strings;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -37,26 +39,39 @@ public class SLAPI {
 	public static <T extends Object> void saveObject(T obj, String filePath) {
 		try {
 			SLAPI.save(obj, filePath);
+		} catch (FileNotFoundException e) {
+			Utils.createDirectoryFromFile(filePath);
+			try {
+				SLAPI.save(obj, filePath);
+			} catch (Exception e1) {
+				BashMultiCommand.plugin.getLogger()
+						.severe(Strings.replaceAll(
+								BashMultiCommand.plugin.strings
+										.get("errorSavingFile"), "%filepath%",
+								filePath)[0]);
+				e1.printStackTrace();
+			}
 		} catch (Exception e) {
-			BashMultiCommand.plugin.getLogger().severe(
-					BashMultiCommand.plugin.strings.get("errorSavingFile")
-							.replaceAll("%filepath%", filePath));
+			BashMultiCommand.plugin
+					.getLogger()
+					.severe(Strings.replaceAll(BashMultiCommand.plugin.strings
+							.get("errorSavingFile"), "%filepath%", filePath)[0]);
 			e.printStackTrace();
 		}
 	}
 
 	public static <T extends Object> T loadFile(String filePath) {
-		File file = new File(filePath);
-		Utils.createDirectory(file.getParent());
-		if (!file.exists())
+		Utils.createDirectoryFromFile(filePath);
+		if (!new File(filePath).exists())
 			return null;
 
 		try {
 			return SLAPI.load(filePath);
 		} catch (Exception e) {
-			BashMultiCommand.plugin.getLogger().severe(
-					BashMultiCommand.plugin.strings.get("errorLoadingFile")
-							.replaceAll("%filepath%", filePath));
+			BashMultiCommand.plugin
+					.getLogger()
+					.severe(Strings.replaceAll(BashMultiCommand.plugin.strings
+							.get("errorLoadingFile"), "%filepath%", filePath)[0]);
 			e.printStackTrace();
 		}
 		return null;

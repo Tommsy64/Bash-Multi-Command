@@ -9,6 +9,7 @@ import io.github.tommsy64.bashmulticommand.command.subcommand.SubCommand;
 import io.github.tommsy64.bashmulticommand.command.subcommand.Toggle;
 import io.github.tommsy64.bashmulticommand.command.subcommand.Update;
 import io.github.tommsy64.bashmulticommand.config.Config;
+import io.github.tommsy64.bashmulticommand.locale.Strings;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,7 +49,8 @@ public class BMCCommandExecutor implements TabExecutor {
 
 		for (String command : commands.keySet().toArray(new String[0])) {
 			if (args[0].equalsIgnoreCase(BashMultiCommand.plugin.strings
-					.get(command)) || commands.get(command).matchesAlias(alias)) {
+					.get(command)[0])
+					|| commands.get(command).matchesAlias(alias)) {
 				commands.get(command).onCommand(sender, cmd, alias,
 						Utils.removeFirst(args));
 				unkownCommand = false;
@@ -57,8 +59,9 @@ public class BMCCommandExecutor implements TabExecutor {
 
 		if (unkownCommand)
 			if (sender.hasPermission("bashmulticommand.command"))
-				sender.sendMessage(BashMultiCommand.plugin.strings.get(
-						"unknownCommand").replaceAll("%command%", args[0]));
+				sender.sendMessage(Strings.replaceAll(
+						BashMultiCommand.plugin.strings.get("unknownCommand"),
+						"%command%", args[0]));
 			else
 				sender.sendMessage(BashMultiCommand.plugin.strings
 						.get("noPermission"));
@@ -82,7 +85,7 @@ public class BMCCommandExecutor implements TabExecutor {
 			List<String> newHelpMessage = new ArrayList<String>();
 
 			newHelpMessage
-					.add(BashMultiCommand.plugin.strings.get("chatTitle"));
+					.add(BashMultiCommand.plugin.strings.get("chatTitle")[0]);
 
 			for (String command : commands.keySet().toArray(new String[0])) {
 				newHelpMessage.add(ChatColor.DARK_AQUA + "/bmc "

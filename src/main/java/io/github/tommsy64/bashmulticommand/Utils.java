@@ -25,13 +25,17 @@ public class Utils {
 		return newArray.toArray(new String[0]);
 	}
 
-	public static void createDirectory(String path) {
-		File f = new File(path);
+	public static void createDirectory(String directoryPath) {
+		File f = new File(directoryPath);
 		if (f.exists() && f.isDirectory())
 			return;
 		else {
 			f.delete();
 			f.mkdirs();
 		}
+	}
+
+	public static void createDirectoryFromFile(String filePath) {
+		createDirectory(new File(filePath).getParent());
 	}
 }
