@@ -49,7 +49,6 @@ public class Updater {
     private Plugin plugin;
     private UpdateType type;
     private String versionName;
-    private String version;
     private String versionLink;
     private String versionType;
     private String versionGameVersion;
@@ -57,7 +56,7 @@ public class Updater {
     private boolean announce; // Whether to announce file downloads
 
     private URL url; // Connecting to RSS
-    private File file; // The plugin's file
+    // private File file; // The plugin's file
     private Thread thread; // Updater thread
 
     private int id = -1; // Project's Curse ID
@@ -168,7 +167,7 @@ public class Updater {
         this.plugin = plugin;
         this.type = type;
         this.announce = announce;
-        this.file = file;
+        // this.file = file;
         this.id = id;
         this.updateFolder = plugin.getServer().getUpdateFolder();
 
@@ -469,7 +468,7 @@ public class Updater {
             final String localVersion = this.plugin.getDescription().getVersion();
             if (title.split(delimiter).length == 2) {
                 final String remoteVersion = title.split(delimiter)[1].split(" ")[0]; // Get the newest file's version number
-                this.version = remoteVersion;
+
                 if (this.hasTag(localVersion) || !this.shouldUpdate(localVersion, remoteVersion)) {
                     // We already have the latest version, or this build is tagged for no-update
                     this.result = Updater.UpdateResult.NO_UPDATE;
@@ -592,7 +591,7 @@ public class Updater {
                 if (Updater.this.read()) {
                     if (Updater.this.versionCheck(Updater.this.versionName)) {
                         if ((Updater.this.versionLink != null) && (Updater.this.type != UpdateType.NO_DOWNLOAD)) {
-                            String name = Updater.this.file.getName().replace("-" + Updater.this.plugin.getDescription().getVersion() , "-" + Updater.this.version);
+                        	String name = Updater.this.plugin.getName() + ".jar";
                             // If it's a zip file, it shouldn't be downloaded as the plugin's name
                             if (Updater.this.versionLink.endsWith(".zip")) {
                                 final String[] split = Updater.this.versionLink.split("/");
@@ -600,7 +599,7 @@ public class Updater {
                             }
                             Updater.this.saveFile(new File(Updater.this.plugin.getDataFolder().getParent(), Updater.this.updateFolder), name, Updater.this.versionLink);
                         } else {
-                        	Updater.this.result = UpdateResult.UPDATE_AVAILABLE;
+                            Updater.this.result = UpdateResult.UPDATE_AVAILABLE;
                         }
                     }
                 }

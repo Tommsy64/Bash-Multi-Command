@@ -1,5 +1,15 @@
 # The character(s) that Bash Multi Command will look for to split a single chat message into multiple ones.
 separator: ';'
+# The maximum allowed separators in one chat message. Giving the permission bashmulticommand.use.default will let that player send 2 messages at once.
+maximumchat:
+  default: 2
+  vip: 5
+  staff: 10
+# The maximum allowed separators in one command. Giving the permission bashmulticommand.use.default will let that player send 2 commands at once.
+maximumcommand:
+  default: 2
+  vip: 5
+  staff: 10
 # The language to use. You can make your own language file and use that.
 language: en_US
 # Whether or not to autoupdate

@@ -88,12 +88,13 @@ public final class BashMultiCommand extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		if (enabled) {
-			SLAPI.saveObject(PlayerManager.playerEnables, enabledDataPath);
-			UUIDManager.saveCache();
-			HandlerList.unregisterAll(chatListener);
-			enabled = false;
-		}
+		if (!enabled)
+			return;
+		SLAPI.saveObject(PlayerManager.playerEnables, enabledDataPath);
+		UUIDManager.saveCache();
+		HandlerList.unregisterAll(chatListener);
+		renamePluginFile();
+		enabled = false;
 	}
 
 	public boolean togglePlugin() {
@@ -103,6 +104,16 @@ public final class BashMultiCommand extends JavaPlugin {
 		} else {
 			onEnable();
 			return true;
+		}
+	}
+
+	private void renamePluginFile() {
+		try {
+			this.getFile().renameTo(
+					new File(this.getFile().getParent() + File.separator
+							+ this.getDescription().getName() + ".jar"));
+		} catch (Exception e) {
+			this.getLogger().severe(this.strings.get("errorRenamingFile")[0]);
 		}
 	}
 }
