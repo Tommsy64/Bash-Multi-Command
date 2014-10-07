@@ -6,8 +6,6 @@ description: This plugin lets you type multiple chat messages with one chat mess
 website: http://dev.bukkit.org/bukkit-plugins/bash-multi-command/
 database: false
 prefix: BMC
-loadbefore: [Vault]
-softdepend: [Vault]
 commands:
  BashMultiCommand:
     description: The base command for BashMultiCommand
