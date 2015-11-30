@@ -20,13 +20,13 @@ will execute /help 1 and then /help 2.
 Typing
 
 ```
-Hello!;Never mind you suck
+Hello!;Bye!
 ```
 
 will make you send 2 messages.
 
 1. Hello!
-2. Never mind you suck
+2. Bye!
 
 
 ##License Notice
